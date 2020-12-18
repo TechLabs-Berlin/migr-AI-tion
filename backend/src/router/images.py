@@ -3,7 +3,12 @@ from typing import Dict, List
 from sqlalchemy.orm import Session
 
 # import dependencies
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends,File, UploadFile
+
+from uuid import uuid4
+
+from PIL import Image as pil_image
+from io import BytesIO
 
 from database.database import get_session
 from models.images import Image
@@ -17,26 +22,57 @@ router = APIRouter()
 # D = DELETE -> @router.delete("/{id}")
 # L = LIST -> @router.get("")
 
+# @router.post("")
+# def create_image(image: Dict, session: Session = Depends(get_session)) -> Image:
+#   """Create a new image.
+
+#   Args:
+#       image (Dict): Image dictionary including name, uri and author.
+#       session (Session, optional): SQLAlchemy Session. Defaults to Depends(get_session).
+
+#   Returns:
+#       Image: A database image instance.
+#   """
+#   # create a new image instance
+#   db_image = Image(**image)
+#   # register image in session
+#   session.add(db_image)
+#   # save changes in database
+#   session.commit()
+#   # reload image from database
+#   session.refresh(db_image)
+#   return db_image
+
 @router.post("")
-def create_image(image: Dict, session: Session = Depends(get_session)) -> Image:
-  """Create a new image.
+async def create_image(file: UploadFile = File(...), session: Session = Depends(get_session)) -> Image:
+    """[summary]
 
-  Args:
-      image (Dict): Image dictionary including name, uri and author.
-      session (Session, optional): SQLAlchemy Session. Defaults to Depends(get_session).
+    Args:
+        file (UploadFile, optional): [description]. Defaults to File(...).
+        session (Session, optional): [description]. Defaults to Depends(get_session).
 
-  Returns:
-      Image: A database image instance.
-  """
-  # create a new image instance
-  db_image = Image(**image)
-  # register image in session
-  session.add(db_image)
-  # save changes in database
-  session.commit()
-  # reload image from database
-  session.refresh(db_image)
-  return db_image
+    Returns:
+        Image: [description]
+    """
+    extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
+    if not extension:
+        return "Image must be jpg or png format!"
+    uuid = str(uuid4().hex)
+    im = pil_image.open(file.file)
+    im.save("./images/"+uuid, "JPEG")
+    image_dict = {"id": uuid, "name": file.filename, "uri":"./images/"+uuid }
+    # create a new image instance
+    db_image = Image(**image_dict)
+    # register image in session
+    session.add(db_image)
+    # save changes in database
+    session.commit()
+    # reload image from database
+    session.refresh(db_image)
+    return db_image
+
+
+
 
 @router.get("")
 def list_images(session: Session = Depends(get_session)) -> List[Image]:
