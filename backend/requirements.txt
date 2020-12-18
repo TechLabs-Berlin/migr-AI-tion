@@ -6,6 +6,7 @@ importlib-metadata==3.3.0
 Pillow==8.0.1
 pydantic==1.7.3
 six==1.12.0
+SQLAlchemy==1.3.21
 starlette==0.13.6
 typing-extensions==3.7.4.3
 uuid==1.30
