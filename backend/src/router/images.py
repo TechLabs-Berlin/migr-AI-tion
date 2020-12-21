@@ -3,7 +3,8 @@ from typing import Dict, List
 from sqlalchemy.orm import Session
 
 # import dependencies
-from fastapi import APIRouter, Depends,File, UploadFile
+from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi.responses import FileResponse
 
 # this is for creating image ids
 from uuid import uuid4
@@ -46,7 +47,7 @@ async def create_image(file: UploadFile = File(...), session: Session = Depends(
     #open the image and make pillow-image object
     im = pil_image.open(file.file)
     #save pillow image object
-    im.save("./images/"+uuid, "JPEG")
+    im.save("./images/"+uuid+".jpeg", "JPEG")
     #create database dictionary with the necessary information
     image_dict = {"id": uuid, "name": file.filename, "uri":"./images/"+uuid }
     # create a new image instance
@@ -70,6 +71,19 @@ def list_images(session: Session = Depends(get_session)) -> List[Image]:
       List[Image]: A list with database image instances.
   """
   return session.query(Image).all()
+
+@router.get("/download_image/{id_}")
+def list_images(id_: str, session: Session = Depends(get_session)) :
+  """List all images in the database.
+
+  Args:
+      session (Session, optional): SQLAlchemy Session. Defaults to Depends(get_session).
+
+  Returns:
+      List[Image]: A list with database image instances.
+  """
+  image_object =  session.query(Image).filter(Image.id == id_).first().uri
+  return FileResponse(image_object) 
 
 @router.get("/{id_}")
 def read_image(id_: str, session: Session = Depends(get_session)) -> Image:
