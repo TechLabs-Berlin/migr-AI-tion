@@ -73,7 +73,7 @@ def list_images(session: Session = Depends(get_session)) -> List[Image]:
   return session.query(Image).all()
 
 @router.get("/download_image/{id_}")
-async def download_images(id_: str, session: Session = Depends(get_session)) :
+async def download_image(id_: str, session: Session = Depends(get_session)) :
   """List all images in the database.
 
   Args:

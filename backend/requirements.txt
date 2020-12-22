@@ -1,4 +1,7 @@
+aiofile==3.3.3
+aiofiles==0.6.0
 appdirs==1.4.4
+caio==0.6.3
 distlib==0.3.1
 fastapi==0.62.0
 filelock==3.0.12
