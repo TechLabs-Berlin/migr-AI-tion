@@ -49,7 +49,7 @@ async def create_image(file: UploadFile = File(...), session: Session = Depends(
     #save pillow image object
     im.save("./images/"+uuid+".jpeg", "JPEG")
     #create database dictionary with the necessary information
-    image_dict = {"id": uuid, "name": file.filename, "uri":"./images/"+uuid }
+    image_dict = {"id": uuid, "name": file.filename, "uri":"./images/"+uuid+'.jpeg' }
     # create a new image instance
     db_image = Image(**image_dict)
     # register image in session
@@ -83,7 +83,7 @@ async def download_images(id_: str, session: Session = Depends(get_session)) :
       List[Image]: A list with database image instances.
   """
   image_object =  session.query(Image).filter(Image.id == id_).first().uri
-  return FileResponse(image_object) 
+  return FileResponse(image_object,media_type="image/jpeg") 
 
 @router.get("/{id_}")
 def read_image(id_: str, session: Session = Depends(get_session)) -> Image:
