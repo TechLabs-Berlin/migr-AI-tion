@@ -3,14 +3,11 @@ from typing import Dict, List
 from sqlalchemy.orm import Session
 
 # import dependencies
+import os
 from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.responses import FileResponse
-
-# this is for creating image ids
-from uuid import uuid4
-
-#this is to read and save images
-from PIL import Image as pil_image
+from uuid import uuid4 # this is for creating image ids
+from PIL import Image as pil_image # this is to read and save images
 
 from database.database import get_session
 from models.images import Image
@@ -38,17 +35,17 @@ async def create_image(file: UploadFile = File(...), session: Session = Depends(
         Image: Image database instance. 
                 Saves image to ./images
     """
-    #check if it is jpeg or other format we like
+    # check if it is jpeg or other format we like
     extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
     if not extension:
         return "Image must be jpg or png format!"
-    #create uuid, so that it can use it for filename
+    # create uuid, so that it can use it for filename
     uuid = str(uuid4().hex)
-    #open the image and make pillow-image object
-    im = pil_image.open(file.file)
-    #save pillow image object
-    im.save("./images/"+uuid+".jpeg", "JPEG")
-    #create database dictionary with the necessary information
+    # open the image and make pillow-image object
+    im = pil_image.open(fp=file.file)
+    # save pillow image object
+    im.save(os.path.join("images", uuid, ".jpeg"), "JPEG")
+    # create database dictionary with the necessary information
     image_dict = {"id": uuid, "name": file.filename, "uri":"./images/"+uuid+'.jpeg' }
     # create a new image instance
     db_image = Image(**image_dict)
@@ -71,46 +68,3 @@ def list_images(session: Session = Depends(get_session)) -> List[Image]:
       List[Image]: A list with database image instances.
   """
   return session.query(Image).all()
-
-@router.get("/download_image/{id_}")
-async def download_image(id_: str, session: Session = Depends(get_session)) :
-  """List all images in the database.
-
-  Args:
-      session (Session, optional): SQLAlchemy Session. Defaults to Depends(get_session).
-
-  Returns:
-      List[Image]: A list with database image instances.
-  """
-  image_object =  session.query(Image).filter(Image.id == id_).first().uri
-  return FileResponse(image_object,media_type="image/jpeg") 
-
-@router.get("/{id_}")
-def read_image(id_: str, session: Session = Depends(get_session)) -> Image:
-  """[summary]
-
-  Args:
-      id_ (str): The id of the image to return.
-      session (Session, optional): SQLAlchemy Session. Defaults to Depends(get_session).
-
-  Returns:
-      Image: A database image instance.
-  """
-  return session.query(Image).filter(Image.id == id_).first()
-
-@router.delete("/{id_}")
-def delete_image(id_: int, session: Session = Depends(get_session)) -> None:
-  """[summary]
-
-  Args:
-      id_ (int): The id of the image to delete.
-      session (Session, optional): SQLAlchemy Session. Defaults to Depends(get_session).
-
-  Returns:
-      None
-  """
-  # delete image
-  session.query(Image).filter(Image.id == id_).delete()
-  # save changes in database
-  session.commit()
-  return None
