@@ -22,7 +22,7 @@ router = APIRouter()
 # L = LIST -> @router.get("")
 
 @router.post("")
-async def create_image(file: UploadFile = File(...), session: Session = Depends(get_session)) -> Image:
+async def create_image(file: UploadFile = File(...), , title: str, session: Session = Depends(get_session)) -> Image:
     """[summary]
 
     Args:
@@ -46,7 +46,7 @@ async def create_image(file: UploadFile = File(...), session: Session = Depends(
     # save pillow image object
     im.save(os.path.join("images", uuid, ".jpeg"), "JPEG")
     # create database dictionary with the necessary information
-    image_dict = {"id": uuid, "name": file.filename, "uri":"./images/"+uuid+'.jpeg' }
+    image_dict = {"id": uuid, "title": title }
     # create a new image instance
     db_image = Image(**image_dict)
     # register image in session

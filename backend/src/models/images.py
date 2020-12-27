@@ -9,5 +9,5 @@ class Image(Base):
   __tablename__ = "images"
 
   id = Column(String(length = 32), primary_key=True,default = uuid4)
-  name = Column(String)
-  uri = Column(String)
+  title = Column(String)
+

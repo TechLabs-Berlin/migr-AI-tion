@@ -4,7 +4,7 @@ from uuid import UUID
 
 class ReadAnnotation(BaseModel):
   """
-  The view of a annotation response.
+  The view of an annotation response.
   """
   id: UUID
   box: str
