@@ -1,35 +1,47 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function Uploader(props) {
+export default function UploadButton(props) {
+  const [state, setState] = useState({ ready: false });
   const [upload, setUpload] = useState({ ready: false });
 
-  function displayImageUpload(response) {
-    setUpload({
-      ready: true,
-      image: response.images.name,
+  function handleUpload(event) {
+    this.setState({
+      image: URL.createObjectURL(event.target.files[0]),
     });
   }
-  function handleImageUpload(response) {
-    console.log(response.images);
-    let imageID = "response.images.name";
-    axios.get(imageID).then(displayImageUpload);
-  }
 
-  function handleUploadSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
-    let apiKey = "";
-    let apiURL = ``;
+    let apiKey = "#";
+    let apiURL = `#`;
     axios.post(apiURL).then(handleImageUpload);
   }
 
-  function handleUpload(event) {
-  event.preventDefault();
-  
-  }
+  //function displayImageUpload(response) {
+  //setUpload({
+  //ready: true,
+  //image: response.images.name,
+  //});
+  //}
+  //function handleImageUpload(response) {
+  //console.log(response.images);
+  //let imageID = "response.images.name";
+  //axios.get(imageID).then(displayImageUpload);
+  //}
+
   let uploadButton = (
-    <div className="button">
-      <button onClick={handleUploadSubmit}>+ Upload!</button>
+    <div className="uploadButton">
+      <label>
+        <input
+          style={{ display: "none" }}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          onChange={handleSubmit}
+        />
+        <button onClick={handleUpload}>+ Upload!</button>
+      </label>
     </div>
   );
 
