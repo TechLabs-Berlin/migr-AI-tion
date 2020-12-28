@@ -12,6 +12,10 @@ from PIL import Image as pil_image # this is to read and save images
 from database.database import get_session
 from models.images import Image
 
+from views.responses.images import ReadImage
+from views.responses.images import ReadImageList
+from views.requests.images import CreateImage
+
 # intialize new router
 router = APIRouter()
 
@@ -21,8 +25,8 @@ router = APIRouter()
 # D = DELETE -> @router.delete("/{id}")
 # L = LIST -> @router.get("")
 
-@router.post("")
-async def create_image(file: UploadFile = File(...), , title: str, session: Session = Depends(get_session)) -> Image:
+@router.post("", response_model=ReadImage)
+async def create_image(title: str, file: UploadFile = File(...),  session: Session = Depends(get_session)) -> Image:
     """[summary]
 
     Args:
@@ -44,7 +48,7 @@ async def create_image(file: UploadFile = File(...), , title: str, session: Sess
     # open the image and make pillow-image object
     im = pil_image.open(fp=file.file)
     # save pillow image object
-    im.save(os.path.join("images", uuid, ".jpeg"), "JPEG")
+    im.save(os.path.join("images", uuid+ ".jpeg"), "JPEG")
     # create database dictionary with the necessary information
     image_dict = {"id": uuid, "title": title }
     # create a new image instance
@@ -57,7 +61,7 @@ async def create_image(file: UploadFile = File(...), , title: str, session: Sess
     session.refresh(db_image)
     return db_image
 
-@router.get("")
+@router.get("", response_model=ReadImageList)
 def list_images(session: Session = Depends(get_session)) -> List[Image]:
   """List all images in the database.
 
