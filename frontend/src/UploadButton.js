@@ -23,6 +23,10 @@ export default function Uploader(props) {
     axios.post(apiURL).then(handleImageUpload);
   }
 
+  function handleUpload(event) {
+  event.preventDefault();
+  
+  }
   let uploadButton = (
     <div className="button">
       <button onClick={handleUploadSubmit}>+ Upload!</button>
