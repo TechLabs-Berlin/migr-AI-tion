@@ -1,58 +1,30 @@
 import React, { useState } from "react";
-import axios from "axios";
+import UploadGallery from "./UploadGallery";
+import UploadCamera from "./UploadCamera";
 
 export default function UploadButton(props) {
   const [state, setState] = useState({ ready: false });
-  const [upload, setUpload] = useState({ ready: false });
 
-  function handleUpload(event) {
-    this.setState({
-      image: URL.createObjectURL(event.target.files[0]),
-    });
+  class showUploadOptions {
+    constructor(event) {
+      setState = true;
+    }
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    let apiKey = "#";
-    let apiURL = `#`;
-    axios.post(apiURL).then(handleImageUpload);
-  }
-
-  //function displayImageUpload(response) {
-  //setUpload({
-  //ready: true,
-  //image: response.images.name,
-  //});
-  //}
-  //function handleImageUpload(response) {
-  //console.log(response.images);
-  //let imageID = "response.images.name";
-  //axios.get(imageID).then(displayImageUpload);
-  //}
-
-  let uploadButton = (
+  uploadButton = (
     <div className="uploadButton">
-      <label>
-        <input
-          style={{ display: "none" }}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          onChange={handleSubmit}
-        />
-        <button onClick={handleUpload}>+ Upload!</button>
-      </label>
+      <button onClick={showUploadOptions}>+ Upload!</button>
     </div>
   );
 
   if (ready) {
     return (
       <div>
-        <Display img={props.images.name} />
-        {uploadButton}
+        <UploadGallery />
+        <UploadCamera />
       </div>
     );
   } else {
-    return uploadButton;
+    return null;
   }
 }
