@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 # import dependencies
 import os
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Depends, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 from uuid import uuid4 # this is for creating image ids
 from PIL import Image as pil_image # this is to read and save images
@@ -42,7 +42,19 @@ async def create_image(title: str, file: UploadFile = File(...),  session: Sessi
     # check if it is jpeg or other format we like
     extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
     if not extension:
-        return "Image must be jpg or png format!"
+        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png1")
+
+    try:
+        im = pil_image.open(file.file)
+        im.verify() #I perform also verify, don't know if he sees other types o defects
+        im.close() #reload is necessary in my case
+        im = pil_image.open(file.file)
+        im.transpose(PIL.Image.FLIP_LEFT_RIGHT)
+        im.close()
+
+    except:
+        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png2")
+
     # create uuid, so that it can use it for filename
     uuid = str(uuid4().hex)
     # open the image and make pillow-image object
