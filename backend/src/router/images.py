@@ -68,8 +68,7 @@ async def create_image(title: str, file: UploadFile = File(...),  session: Sessi
 
     # create uuid, so that it can use it for filename
     uuid = str(uuid4().hex)
-    # open the image and make pillow-image object
-    im = pil_image.open(fp=file.file)
+    
     # save pillow image object
     im.save(os.path.join("images", uuid+ ".jpeg"), "JPEG")
     # create database dictionary with the necessary information
