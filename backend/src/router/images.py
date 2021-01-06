@@ -42,18 +42,18 @@ async def create_image(title: str, file: UploadFile = File(...),  session: Sessi
     # check if it is jpeg or other format we like
     extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
     if not extension:
-        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png1")
+        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png")
 
     try:
         im = pil_image.open(file.file)
         im.verify() #I perform also verify, don't know if he sees other types o defects
         im.close() #reload is necessary in my case
         im = pil_image.open(file.file)
-        im.transpose(PIL.Image.FLIP_LEFT_RIGHT)
+        im.transpose(pil_image.FLIP_LEFT_RIGHT)
         im.close()
 
     except:
-        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png2")
+        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png")
 
     # create uuid, so that it can use it for filename
     uuid = str(uuid4().hex)
