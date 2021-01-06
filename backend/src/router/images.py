@@ -31,8 +31,10 @@ async def create_image(title: str, file: UploadFile = File(...),  session: Sessi
     """[summary]
 
     Args:
-        file (UploadFile, optional): [description]. Accepts file objects, Pillow is powerful, 
-        so probably accepts a bunch of image types, but for now onlz jpg and png
+        title (str, required). Has to be a string object. 
+
+        file (UploadFile, optional): Accepts file objects, Pillow is powerful, 
+        so probably accepts a bunch of image types, but for now onlz jpg and png.
 
         session (Session, optional): Gets session object for database connection. Defaults to Depends(get_session).
 
@@ -41,20 +43,28 @@ async def create_image(title: str, file: UploadFile = File(...),  session: Sessi
                 Saves image to ./images
     """
     # check if it is jpeg or other format we like
-    extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
-    if not extension:
-        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png")
 
+    # 1 cheapest validation as first method just checking extension
+    extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png","JPEG","PNG")
+    if not extension:
+        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png. Maybe your file extension is not specified or erroneous.")
+    
+    # 2 more expensive image validation, first checking format, then trying to verify with pillow
     try:
-        im = pil_image.open(file.file)
-        im.verify() #I perform also verify, don't know if he sees other types o defects
-        im.close() #reload is necessary in my case
-        im = pil_image.open(file.file)
-        im = im.transpose(PIL.Image.ROTATE_180)
+        im = pil_image.open(fp = file.file)
+        extension = im.format in ("JPEG", "JPEG 2000", "PNG")
+        if not extension:
+            raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted.")
+
+        #2a validation through verify method of pillow library
+        im.verify() 
         im.close()
 
+        # 2b verification through simple transpose method which would uncover truncated images
+        im = pil_image.open(fp = file.file)
+        im.transpose(method = PIL.Image.ROTATE_180)
     except:
-        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png")
+        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted.")
 
     # create uuid, so that it can use it for filename
     uuid = str(uuid4().hex)
