@@ -7,6 +7,7 @@ import os
 from fastapi import APIRouter, Depends, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 from uuid import uuid4 # this is for creating image ids
+import PIL
 from PIL import Image as pil_image # this is to read and save images
 
 from database.database import get_session
@@ -49,7 +50,7 @@ async def create_image(title: str, file: UploadFile = File(...),  session: Sessi
         im.verify() #I perform also verify, don't know if he sees other types o defects
         im.close() #reload is necessary in my case
         im = pil_image.open(file.file)
-        im.transpose(pil_image.FLIP_LEFT_RIGHT)
+        im = im.transpose(PIL.Image.ROTATE_180)
         im.close()
 
     except:
