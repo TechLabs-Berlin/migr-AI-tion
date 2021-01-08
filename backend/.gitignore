@@ -9,6 +9,7 @@ demo.db
 
 # ignore uploaded images in the images folder
 images/*.jpeg
+src/images/*.jpeg
 
 # ignore ide settings folder
 .idea

@@ -20,7 +20,7 @@ router = APIRouter()
 # L = LIST -> @router.get("")
 
 @router.post("")
-async def create_tag(tag: str, tag_id: UUID, session: Session = Depends(get_session)) -> Tag:
+async def create_tag(tag: str,  session: Session = Depends(get_session)) -> Tag:
     """[summary]
 
     Args:
@@ -37,7 +37,7 @@ async def create_tag(tag: str, tag_id: UUID, session: Session = Depends(get_sess
     """
 
     # create a new image instance
-    db_tags = Tag()
+    db_tags = Tag(tag = tag, tag_id = uuid4().hex)
     # register image in session
     session.add(db_tags)
     # save changes in database
@@ -46,3 +46,15 @@ async def create_tag(tag: str, tag_id: UUID, session: Session = Depends(get_sess
     session.refresh(db_tags)
     return db_tags
 
+@router.get("")
+def list_tags(session: Session = Depends(get_session)) -> List[Tag]:
+    """[summary]
+
+    Args:
+        session (Session, optional): [description]. Defaults to Depends(get_session).
+
+    Returns:
+        List[Tag]: [description]
+    """
+
+    return session.query(Tag).all()
