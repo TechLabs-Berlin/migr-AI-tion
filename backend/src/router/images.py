@@ -1,5 +1,5 @@
 # import type hints
-from typing import Dict, List
+from typing import List
 from sqlalchemy.orm import Session
 
 # import dependencies
@@ -16,7 +16,6 @@ from models.tags import Tag
 
 from router.tags import create_tag
 from router.images_tags import create_images_tags
-
 
 from views.responses.images import ReadImage
 from views.responses.images import ReadImageList
@@ -36,27 +35,38 @@ async def create_image(caption: str, tags: List, file: UploadFile = File(...), s
     """[summary]
 
     Args:
-        title (str, required). Has to be a string object. 
+        caption (str): Here you can submit a string, with the caption of the image. This is not optional. 
+        tags (List): Here we expect an array of strings. 
+        file (UploadFile, optional): [description]. Defaults to File(...).
+        session (Session, optional): [description]. Defaults to Depends(get_session).
 
-        file (UploadFile, optional): Accepts file objects, Pillow is powerful, 
-        so probably accepts a bunch of image types, but for now onlz jpg and png.
-
-        session (Session, optional): Gets session object for database connection. Defaults to Depends(get_session).
+    Raises:
+        HTTPException: Raises exceptions, if the image is corrupted, or does not have the correct file extensions. 
 
     Returns:
-        Image: Image database instance. 
-                Saves image to ./images
+        Image: Instance of image database, which contains caption of image and the image_id, which is basically also the place where we saved it. 
     """
 
+    ## Tag creation and check 
+
+    # This checks, which tags already exist in the database and queries them
     existing_tags = session.query(Tag.tag).all()
+
+    # This flattens the list of tuples into a list
     existing_tags = [list(x) for x in existing_tags]
     existing_tags = [item for sublist in existing_tags for item in sublist]
+
+    # Since we did not yet define a class for this, we split by comma, this is DIRTY NEEDS TO BE BETTER!!!!!!
     tags = tags[0].split(",")
+
+    # Exclude the tags that already exist
     non_existing_tags = [tag for tag in tags if tag not in existing_tags]
 
-
+    # Write the tags that are not in the database, so that we get an id for them
     for tag in non_existing_tags:
         await create_tag(tag = tag,session = session)
+
+    ## Image Validation
 
     # 1 cheapest validation as first method just checking extension
     extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png","JPEG","PNG")
@@ -96,10 +106,14 @@ async def create_image(caption: str, tags: List, file: UploadFile = File(...), s
     # reload image from database
     session.refresh(db_image)
 
+    ## Create image_tags database
+    # get the tag ids
+    tag_ids = session.query(Tag.tag_id).filter(Tag.tag.in_(tags)).all()
+    tag_ids = [r[0] for r in tag_ids]
 
-    # tag_ids = session.query(Tag.tag_id).filter(tag in tags)
-    # print(tag_ids)
-
+    # write a image_tag instance
+    for tag_id in tag_ids:
+        await create_images_tags(tag_id = tag_id, image_id= uuid, session = session)
 
     return db_image
 

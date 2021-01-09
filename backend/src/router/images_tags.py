@@ -24,18 +24,20 @@ async def create_images_tags(tag_id: UUID, image_id: UUID, session: Session = De
     """[summary]
 
     Args:
-        tag (str): [description]
+        tag_id (UUID): Provide the id of the tag that is matched to the image
+        image_id (UUID): Provide the id of the image, that was just uploaded. 
         session (Session, optional): [description]. Defaults to Depends(get_session).
 
     Returns:
-        Tag: [description]
+        Image_tag: [description]
     """
+    # make instance of Image_tag
     db_images_tags = Image_tag(tag_id = tag_id, image_id = image_id)
-    # register image in session
+    # register image_tag in session
     session.add(db_images_tags)
     # save changes in database
     session.commit()
-    # reload image from database
+    # reload tag instance from database
     session.refresh(db_images_tags)
     return db_images_tags
 
@@ -51,3 +53,16 @@ def list_images_tags(session: Session = Depends(get_session)) -> List[Image_tag]
     """
 
     return session.query(Image_tag).all()
+
+@router.get("/{tag_id}")
+def list_images_tags(tag_id: str, session: Session = Depends(get_session)) -> List[Image_tag]:
+    """[summary]
+
+    Args:
+        session (Session, optional): [description]. Defaults to Depends(get_session).
+
+    Returns:
+        List[Tag]: [description]
+    """
+
+    return session.query(Image_tag.image_id).filter(Image_tag.tag_id == tag_id).distinct().all()

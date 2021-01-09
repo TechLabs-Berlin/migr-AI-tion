@@ -1,5 +1,5 @@
 # import type hints
-from typing import Dict, List
+from typing import List
 from sqlalchemy.orm import Session
 
 # import dependencies
@@ -24,7 +24,7 @@ async def create_tag(tag: str, session: Session = Depends(get_session)) -> Tag:
     """[summary]
 
     Args:
-        tag (str): [description]
+        tag (str): Here you can submit one tag as a string. 
         session (Session, optional): [description]. Defaults to Depends(get_session).
 
     Returns:
