@@ -1,30 +1,30 @@
-import React, { useState } from "react";
-import UploadGallery from "./UploadGallery";
-import UploadCamera from "./UploadCamera";
+import React from "react";
+import ReactModal from "react-modal";
+import TagsInput from "./TagsInput";
+import UploadForm from "./UploadForm";
+import "./UploadButton.css";
+import ImageCaption from "./ImageCaption";
 
-export default function UploadButton(props) {
-  const [state, setState] = useState({ ready: false });
+export default function UploadButton() {
+  const [show, setShow] = React.useState(false);
 
-  class showUploadOptions {
-    constructor(event) {
-      setState = true;
-    }
+  const selectedTags = (tags) => console.log(tags);
+
+  function openModal() {
+    setShow(true);
   }
 
-  uploadButton = (
-    <div className="uploadButton">
-      <button onClick={showUploadOptions}>+ Upload!</button>
+  function closeModal() {
+    setShow(false);
+  }
+  return (
+    <div className="upload-button">
+      <button onClick={openModal}>upload button</button>
+      <ReactModal isOpen={show} onRequestClose={closeModal}>
+        <UploadForm />
+        <TagsInput selectedTags={selectedTags} />
+        <ImageCaption />
+      </ReactModal>
     </div>
   );
-
-  if (ready) {
-    return (
-      <div>
-        <UploadGallery />
-        <UploadCamera />
-      </div>
-    );
-  } else {
-    return null;
-  }
 }

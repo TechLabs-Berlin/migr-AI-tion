@@ -1,0 +1,20 @@
+.upload-button button {
+  border: none;
+  position: absolute;
+  width: 330px;
+  height: 80px;
+  left: 541px;
+  top: 631px;
+
+  background: #9611ff;
+
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 10px;
+
+  color: white;
+}
