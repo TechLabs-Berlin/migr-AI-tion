@@ -8,6 +8,6 @@ from database.database import Base
 class Image(Base):
   __tablename__ = "images"
 
-  id = Column(String(length = 32), primary_key=True,default = uuid4)
-  title = Column(String)
+  image_id = Column(String(length = 32), primary_key=True,default = uuid4)
+  caption = Column(String)
 

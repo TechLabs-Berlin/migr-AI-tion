@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from uuid import uuid4 # this is for creating image ids
 from uuid import UUID
 from database.database import get_session
-from models.tags import Tag
+from models.images_tags import Image_tag
 
 # intialize new router
 router = APIRouter()
@@ -20,7 +20,7 @@ router = APIRouter()
 # L = LIST -> @router.get("")
 
 @router.post("")
-async def create_tag(tag: str, session: Session = Depends(get_session)) -> Tag:
+async def create_images_tags(tag_id: UUID, image_id: UUID, session: Session = Depends(get_session)) -> Image_tag:
     """[summary]
 
     Args:
@@ -30,19 +30,17 @@ async def create_tag(tag: str, session: Session = Depends(get_session)) -> Tag:
     Returns:
         Tag: [description]
     """
-
-    # create a new image instance
-    db_tags = Tag(tag = tag, tag_id = uuid4().hex)
+    db_images_tags = Image_tag(tag_id = tag_id, image_id = image_id)
     # register image in session
-    session.add(db_tags)
+    session.add(db_images_tags)
     # save changes in database
     session.commit()
     # reload image from database
-    session.refresh(db_tags)
-    return db_tags
+    session.refresh(db_images_tags)
+    return db_images_tags
 
 @router.get("")
-def list_tags(session: Session = Depends(get_session)) -> List[Tag]:
+def list_images_tags(session: Session = Depends(get_session)) -> List[Image_tag]:
     """[summary]
 
     Args:
@@ -52,4 +50,4 @@ def list_tags(session: Session = Depends(get_session)) -> List[Tag]:
         List[Tag]: [description]
     """
 
-    return session.query(Tag).all()
+    return session.query(Image_tag).all()

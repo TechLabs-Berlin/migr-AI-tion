@@ -22,4 +22,4 @@ app.mount(path="/images", app=StaticFiles(directory="images"), name="static")
 
 # register routers
 app.include_router(router = images.router, prefix = "/images")
-app.include_router(router=tags.router, prefix="/tags")
+app.include_router(router = tags.router, prefix="/tags")

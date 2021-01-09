@@ -6,4 +6,4 @@ class CreateImage(BaseModel):
   """
   The view to create a new image.
   """
-  title: str
+  caption: str

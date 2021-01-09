@@ -12,6 +12,11 @@ from PIL import Image as pil_image # this is to read and save images
 
 from database.database import get_session
 from models.images import Image
+from models.tags import Tag
+
+from router.tags import create_tag
+from router.images_tags import create_images_tags
+
 
 from views.responses.images import ReadImage
 from views.responses.images import ReadImageList
@@ -27,7 +32,7 @@ router = APIRouter()
 # L = LIST -> @router.get("")
 
 @router.post("", response_model=ReadImage)
-async def create_image(title: str, file: UploadFile = File(...),  session: Session = Depends(get_session)) -> Image:
+async def create_image(caption: str, tags: List, file: UploadFile = File(...), session: Session = Depends(get_session)) -> Image:
     """[summary]
 
     Args:
@@ -42,7 +47,16 @@ async def create_image(title: str, file: UploadFile = File(...),  session: Sessi
         Image: Image database instance. 
                 Saves image to ./images
     """
-    # check if it is jpeg or other format we like
+
+    existing_tags = session.query(Tag.tag).all()
+    existing_tags = [list(x) for x in existing_tags]
+    existing_tags = [item for sublist in existing_tags for item in sublist]
+    tags = tags[0].split(",")
+    non_existing_tags = [tag for tag in tags if tag not in existing_tags]
+
+
+    for tag in non_existing_tags:
+        await create_tag(tag = tag,session = session)
 
     # 1 cheapest validation as first method just checking extension
     extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png","JPEG","PNG")
@@ -72,7 +86,7 @@ async def create_image(title: str, file: UploadFile = File(...),  session: Sessi
     # save pillow image object
     im.save(os.path.join("images", uuid+ ".jpeg"), "JPEG")
     # create database dictionary with the necessary information
-    image_dict = {"id": uuid, "title": title }
+    image_dict = {"image_id": uuid, "caption": caption }
     # create a new image instance
     db_image = Image(**image_dict)
     # register image in session
@@ -81,6 +95,12 @@ async def create_image(title: str, file: UploadFile = File(...),  session: Sessi
     session.commit()
     # reload image from database
     session.refresh(db_image)
+
+
+    # tag_ids = session.query(Tag.tag_id).filter(tag in tags)
+    # print(tag_ids)
+
+
     return db_image
 
 @router.get("", response_model=ReadImageList)

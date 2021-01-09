@@ -7,8 +7,8 @@ class ReadImage(BaseModel):
   """
   The view of an annotation response.
   """
-  id: UUID
-  title: str
+  image_id: UUID
+  caption: str
   
   class Config:
     orm_mode = True
