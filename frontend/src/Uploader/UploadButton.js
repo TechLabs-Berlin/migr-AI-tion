@@ -1,14 +1,10 @@
 import React from "react";
 import ReactModal from "react-modal";
-import TagsInput from "./TagsInput";
-import UploadForm from "./UploadForm";
+import PostForm from "./PostForm";
 import "./UploadButton.css";
-import ImageCaption from "./ImageCaption";
 
 export default function UploadButton() {
   const [show, setShow] = React.useState(false);
-
-  const selectedTags = (tags) => console.log(tags);
 
   function openModal() {
     setShow(true);
@@ -21,9 +17,7 @@ export default function UploadButton() {
     <div className="upload-button">
       <button onClick={openModal}>upload button</button>
       <ReactModal isOpen={show} onRequestClose={closeModal}>
-        <UploadForm />
-        <TagsInput selectedTags={selectedTags} />
-        <ImageCaption />
+        <PostForm />
       </ReactModal>
     </div>
   );
