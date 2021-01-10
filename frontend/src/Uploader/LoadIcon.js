@@ -3,28 +3,43 @@ import PropTypes from "prop-types";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#9611ff",
+    },
+    secondary: {
+      main: "#668389",
+    },
+  },
+});
 
 function CircularProgressWithLabel(props) {
   return (
-    <Box position="relative" display="inline-flex">
-      <CircularProgress variant="determinate" {...props} />
-      <Box
-        top={0}
-        left={0}
-        bottom={0}
-        right={0}
-        position="absolute"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Typography
-          variant="caption"
-          component="div"
-          color="textSecondary"
-        >{`${Math.round(props.value)}%`}</Typography>
+    <ThemeProvider theme={theme}>
+      <Box position="relative" display="inline-flex">
+        <CircularProgress variant="determinate" {...props} />
+        <Box
+          top={0}
+          left={0}
+          bottom={0}
+          right={0}
+          position="absolute"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Typography
+            variant="caption"
+            component="div"
+            color="textSecondary"
+          >{`${Math.round(props.value)}%`}</Typography>
+        </Box>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 }
 
