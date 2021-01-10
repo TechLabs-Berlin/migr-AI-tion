@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import UploadButton from "./Uploader/UploadButton";
+import ProjectIntroPage from "./ProjectIntroPage";
 import LoadIcon from "./Uploader/LoadIcon";
 
 function App() {
   return (
     <div className="App">
-      <UploadButton />
+      <ProjectIntroPage />
       <LoadIcon />
     </div>
   );
