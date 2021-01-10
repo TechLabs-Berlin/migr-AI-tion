@@ -1,0 +1,26 @@
+.image-caption-form form {
+  position: absolute;
+  width: 835px;
+  height: 58px;
+  left: 300px;
+  top: 776px;
+
+  border: 1px solid #668389;
+  box-sizing: border-box;
+}
+
+.caption-label label {
+  position: absolute;
+  width: 415px;
+  height: 23px;
+  left: 300px;
+  top: 739px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 33px;
+
+  color: #668389;
+}

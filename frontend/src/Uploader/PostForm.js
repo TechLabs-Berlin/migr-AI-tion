@@ -63,8 +63,7 @@ export default function UploadForm() {
             disabled={progress}
             onClick={handleSave}
           >
-            {" "}
-            Save{" "}
+            <span className="save-button-text">Save</span>
           </button>
         </div>
       </container>

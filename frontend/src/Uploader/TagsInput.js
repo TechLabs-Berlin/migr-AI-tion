@@ -17,10 +17,10 @@ export default function TagsInput(props) {
     <div className="tags-input">
       <ul>
         {tags.map((tag, index) => (
-          <li key={index}>
-            <span>{tag}</span>
+          <li className="tags-list" key={index}>
+            <span className="tag-icon">{tag}</span>
             <button
-              type="button"
+              type="tags-cancel-button"
               onClick={() => {
                 removeTags(index);
               }}
@@ -31,10 +31,15 @@ export default function TagsInput(props) {
         ))}
       </ul>
       <input
+        className="tags-input-form"
+        name="tags"
         type="text"
         onKeyDown={(event) => addTags(event)}
         placeholder="Press enter to create a tag"
       />
+      <label className="tags-input-label" for="tags">
+        Tag(s)
+      </label>
     </div>
   );
 }

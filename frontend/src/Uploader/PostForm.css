@@ -1,0 +1,37 @@
+.save-button button {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+
+  background: #9611ff;
+  border-radius: 5px;
+}
+
+.save-button-text button {
+  position: absolute;
+  height: 54px;
+  left: 19px;
+  right: 19px;
+  top: calc(50% - 54px / 2 - 1.5px);
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 29px;
+  line-height: 34px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #ffffff;
+}
+
+loaded-image img {
+  position: absolute;
+  width: 884px;
+  height: 407px;
+  left: 273px;
+  top: 245px;
+}

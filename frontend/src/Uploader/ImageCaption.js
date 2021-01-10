@@ -11,10 +11,14 @@ export default function ImageCaption(props) {
     <div className="image-caption">
       <form className="image-caption-form">
         <input
+          name="image-caption-input"
           type="text"
           onChange={handleImageCaption}
           placeholder="Caption your picture"
         />
+        <label className="caption-label" for="image-caption-input">
+          Description
+        </label>
       </form>
     </div>
   );

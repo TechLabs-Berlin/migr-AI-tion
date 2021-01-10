@@ -1,20 +1,24 @@
 .upload-button button {
-  border: none;
   position: absolute;
-  width: 330px;
+  width: 246px;
   height: 80px;
-  left: 541px;
-  top: 631px;
+  left: 606px;
+  top: 649px;
 
   background: #9611ff;
+  border: 3px solid #9611ff;
+  box-sizing: border-box;
+  border-radius: 70px;
+}
 
-  font-family: sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 30px;
-  line-height: 35px;
-  text-align: center;
-  border-radius: 10px;
+.upload-modal {
+  position: absolute;
+  width: 884px;
+  height: 678px;
+  left: 273px;
+  top: 245px;
 
-  color: white;
+  border: 3px solid #9611ff;
+  box-sizing: border-box;
+  border-radius: 20px;
 }

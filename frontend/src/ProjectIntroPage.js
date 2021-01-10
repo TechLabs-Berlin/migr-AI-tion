@@ -21,6 +21,7 @@ export default function ProjectIntroPage() {
         participate in the development of new technologies and the future media
         landscape.
       </h3>
+      <h4> Collaborate! </h4>
       <UploadButton />
     </div>
   );

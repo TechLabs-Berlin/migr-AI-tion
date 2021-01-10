@@ -15,8 +15,12 @@ export default function UploadButton() {
   }
   return (
     <div className="upload-button">
-      <button onClick={openModal}>upload button</button>
-      <ReactModal isOpen={show} onRequestClose={closeModal}>
+      <button onClick={openModal}>Upload</button>
+      <ReactModal
+        className="upload-modal"
+        isOpen={show}
+        onRequestClose={closeModal}
+      >
         <PostForm />
       </ReactModal>
     </div>
