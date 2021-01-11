@@ -1,20 +1,19 @@
-.save-button button {
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
-
-  background: #9611ff;
-  border-radius: 5px;
+.save-form {
+  padding-left: 21px;
+  padding-right: 15px;
+  position: relative;
+  top: 350px;
 }
+.save-form .save-data button {
+  background: #9611ff;
 
-.save-button-text button {
-  position: absolute;
-  height: 54px;
-  left: 19px;
-  right: 19px;
-  top: calc(50% - 54px / 2 - 1.5px);
+  border: none;
+  position: relative;
+  padding-left: 65px;
+  padding-right: 65px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  left: 650px;
 
   font-family: Roboto;
   font-style: normal;
@@ -29,7 +28,6 @@
 }
 
 loaded-image img {
-  position: absolute;
   width: 884px;
   height: 407px;
   left: 273px;

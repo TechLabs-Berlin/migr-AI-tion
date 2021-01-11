@@ -4,7 +4,8 @@
   height: 80px;
   left: 606px;
   top: 649px;
-
+  color: white;
+  font-size: 28px;
   background: #9611ff;
   border: 3px solid #9611ff;
   box-sizing: border-box;
@@ -12,13 +13,14 @@
 }
 
 .upload-modal {
-  position: absolute;
+  position: relative;
   width: 884px;
   height: 678px;
-  left: 273px;
-  top: 245px;
-
+  top: 5%;
+  display: block;
+  margin: 0 auto;
   border: 3px solid #9611ff;
   box-sizing: border-box;
   border-radius: 20px;
+  background-color: white;
 }

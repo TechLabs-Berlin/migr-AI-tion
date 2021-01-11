@@ -1,5 +1,5 @@
-import { prependOnceListener } from "npm";
 import React from "react";
+import "./ImageCaption.css";
 
 export default function ImageCaption(props) {
   function handleImageCaption(event) {
@@ -9,6 +9,7 @@ export default function ImageCaption(props) {
 
   return (
     <div className="image-caption">
+      <label for="image-caption-form">Description</label>
       <form className="image-caption-form">
         <input
           name="image-caption-input"
@@ -16,9 +17,6 @@ export default function ImageCaption(props) {
           onChange={handleImageCaption}
           placeholder="Caption your picture"
         />
-        <label className="caption-label" for="image-caption-input">
-          Description
-        </label>
       </form>
     </div>
   );

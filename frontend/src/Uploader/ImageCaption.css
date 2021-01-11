@@ -1,5 +1,4 @@
-.image-caption-form form {
-  position: absolute;
+.image-caption input {
   width: 835px;
   height: 58px;
   left: 300px;
@@ -9,8 +8,7 @@
   box-sizing: border-box;
 }
 
-.caption-label label {
-  position: absolute;
+.image-caption .image-caption-form label {
   width: 415px;
   height: 23px;
   left: 300px;
@@ -21,6 +19,5 @@
   font-weight: normal;
   font-size: 28px;
   line-height: 33px;
-
   color: #668389;
 }

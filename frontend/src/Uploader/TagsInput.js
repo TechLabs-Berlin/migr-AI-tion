@@ -1,4 +1,5 @@
 import React from "react";
+import "./TagsInput.css";
 
 export default function TagsInput(props) {
   const [tags, setTags] = React.useState([]);
@@ -30,16 +31,14 @@ export default function TagsInput(props) {
           </li>
         ))}
       </ul>
+      <br />
+      <label for="tags-input-form">Tag(s)</label>
       <input
-        className="tags-input-form"
-        name="tags"
+        name="tags-input-form"
         type="text"
         onKeyDown={(event) => addTags(event)}
         placeholder="Press enter to create a tag"
       />
-      <label className="tags-input-label" for="tags">
-        Tag(s)
-      </label>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 import TagsInput from "./TagsInput";
 import ImageCaption from "./ImageCaption";
 import CircularProgressWithLabel from "./ProgressIcon";
+import "./PostForm.css";
 
 export default function UploadForm() {
   const [image, setImage] = React.useState(null);
@@ -26,15 +27,14 @@ export default function UploadForm() {
   };
 
   function handleSave() {
-    preventdefault();
     if (!progress) {
       setProgress(true);
-      return (files = [image, tags, caption]);
     }
+    let files = [image, tags, caption];
+    return files;
   }
 
-  function postData() {
-    preventdefault();
+  function postData(files) {
     let formData = new FormData();
     formData.append("file", files);
     axios.post("http://localhost:8000/images", formData).then((response) => {
@@ -45,28 +45,29 @@ export default function UploadForm() {
   postData();
 
   return (
-    <div className="SaveForm">
+    <div className="save-form">
       <label>
         <input type="file" accept="image/*" onChange={handleImageSelection} />
       </label>
 
-      <img src={src} alt="img" />
+      <img className="loaded-image" src={src} alt="img" />
+
       <TagsInput selectedTags={selectedTags} />
+      <br />
       <ImageCaption enteredCaption={enteredCaption} />
-      <container>
-        <div className="save">
-          <div className="load-icon">
-            <CircularProgressWithLabel value={progress} />
-          </div>
-          <button
-            className="save-button"
-            disabled={progress}
-            onClick={handleSave}
-          >
-            <span className="save-button-text">Save</span>
-          </button>
+
+      <div className="save-data">
+        <div className="load-icon">
+          <CircularProgressWithLabel value={progress} />
         </div>
-      </container>
+        <button
+          className="save-button"
+          disabled={progress}
+          onClick={handleSave}
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 }
