@@ -26,20 +26,18 @@ export default function UploadForm() {
     setImage(event.target.files[0]);
   };
 
-  function handleSave() {
-    if (!progress) {
-      setProgress(true);
-    }
-    let files = [image, tags, caption];
-    return files;
-  }
-
-  function postData(files) {
+  async function postData() {
+    setProgress(true);
     let formData = new FormData();
-    formData.append("file", files);
-    axios.post("http://localhost:8000/images", formData).then((response) => {
-      setSrc(`http://localhost:8000/images/${response.data.id}.jpeg`);
-    });
+    formData.append("file", image);
+    formData.append("tags", tags);
+    formData.append("caption", caption);
+    await axios
+      .post("http://localhost:8000/images", formData)
+      .then((response) => {
+        setSrc(`http://localhost:8000/images/${response.data.id}.jpeg`);
+      });
+    setProgress(false);
   }
 
   postData();
@@ -60,11 +58,7 @@ export default function UploadForm() {
         <div className="load-icon">
           <CircularProgressWithLabel value={progress} />
         </div>
-        <button
-          className="save-button"
-          disabled={progress}
-          onClick={handleSave}
-        >
+        <button className="save-button" disabled={progress} onClick={postData}>
           Save
         </button>
       </div>
