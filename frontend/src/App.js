@@ -1,12 +1,10 @@
 import "./App.css";
+import Uploader from "./Uploader";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Hello World</p>
-        <p>Its Jie!</p>
-      </header>
+      <Uploader />
     </div>
   );
 }

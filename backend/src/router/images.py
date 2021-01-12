@@ -31,6 +31,7 @@ router = APIRouter()
 @router.post("", response_model=ReadImage)
 def create_image(caption: str = Form(...), tags: str = Form(...), file: UploadFile = File(...),
                  session: Session = Depends(get_session)) -> Image:
+
     """[summary]
 
     Args:
@@ -99,6 +100,7 @@ def create_image(caption: str = Form(...), tags: str = Form(...), file: UploadFi
     uuid = str(uuid4().hex)
 
     # save pillow image object
+
     im.save(os.path.join("images", uuid + ".jpeg"), "JPEG")
     # create a new image instance
     db_image = Image(id=uuid, caption=caption)
