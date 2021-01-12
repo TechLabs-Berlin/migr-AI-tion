@@ -3,11 +3,12 @@ from sqlalchemy import String, Column
 
 from uuid import uuid4
 
+from database.types import UUID
 from database.database import Base
 
+
 class Tag(Base):
-  __tablename__ = "tags"
+    __tablename__ = "tags"
 
-  tag_id = Column(String(length = 36), primary_key=True, default = uuid4)
-  tag = Column(String)
-
+    id = Column(UUID, primary_key=True, default=uuid4)
+    tag = Column(String)

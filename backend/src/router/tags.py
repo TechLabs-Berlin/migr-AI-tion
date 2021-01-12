@@ -5,13 +5,15 @@ from sqlalchemy.orm import Session
 # import dependencies
 import os
 from fastapi import APIRouter, Depends, HTTPException
-from uuid import uuid4 # this is for creating image ids
+from uuid import uuid4  # this is for creating image ids
 from uuid import UUID
 from database.database import get_session
 from models.tags import Tag
+from controllers.tags import TagController
 
 # intialize new router
 router = APIRouter()
+
 
 # C = CREATE -> @router.post("")
 # R = READ -> @router.get("/{id}")
@@ -19,27 +21,6 @@ router = APIRouter()
 # D = DELETE -> @router.delete("/{id}")
 # L = LIST -> @router.get("")
 
-@router.post("")
-async def create_tag(tag: str, session: Session = Depends(get_session)) -> Tag:
-    """[summary]
-
-    Args:
-        tag (str): Here you can submit one tag as a string. 
-        session (Session, optional): [description]. Defaults to Depends(get_session).
-
-    Returns:
-        Tag: [description]
-    """
-
-    # create a new image instance
-    db_tags = Tag(tag = tag, tag_id = uuid4().hex)
-    # register image in session
-    session.add(db_tags)
-    # save changes in database
-    session.commit()
-    # reload image from database
-    session.refresh(db_tags)
-    return db_tags
 
 @router.get("")
 def list_tags(session: Session = Depends(get_session)) -> List[Tag]:
@@ -51,5 +32,6 @@ def list_tags(session: Session = Depends(get_session)) -> List[Tag]:
     Returns:
         List[Tag]: [description]
     """
-
-    return session.query(Tag).all()
+    # initialize tag contoller
+    tag_controller = TagController(session=session)
+    return tag_controller.list()

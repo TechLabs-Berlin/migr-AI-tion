@@ -4,25 +4,23 @@ from sqlalchemy.orm import Session
 
 # import dependencies
 import os
-from fastapi import APIRouter, Depends, File, UploadFile, HTTPException
-from fastapi.responses import FileResponse
-from uuid import uuid4 # this is for creating image ids
+from fastapi import APIRouter, Depends, File, Form, UploadFile, HTTPException
+from uuid import uuid4  # this is for creating image ids
 import PIL
-from PIL import Image as pil_image # this is to read and save images
+from PIL import Image as pil_image  # this is to read and save images
 
 from database.database import get_session
 from models.images import Image
 from models.tags import Tag
+from models.images_tags import ImageTag
 
-from router.tags import create_tag
-from router.images_tags import create_images_tags
+from controllers.tags import TagController
 
 from views.responses.images import ReadImage
-from views.responses.images import ReadImageList
-from views.requests.images import CreateImage
 
-# intialize new router
+# initialize new router
 router = APIRouter()
+
 
 # C = CREATE -> @router.post("")
 # R = READ -> @router.get("/{id}")
@@ -31,7 +29,8 @@ router = APIRouter()
 # L = LIST -> @router.get("")
 
 @router.post("", response_model=ReadImage)
-async def create_image(caption: str, tags: List, file: UploadFile = File(...), session: Session = Depends(get_session)) -> Image:
+def create_image(caption: str = Form(...), tags: str = Form(...), file: UploadFile = File(...),
+                 session: Session = Depends(get_session)) -> Image:
     """[summary]
 
     Args:
@@ -49,56 +48,60 @@ async def create_image(caption: str, tags: List, file: UploadFile = File(...), s
 
     ## Tag creation and check 
 
+    # initialize new tag controller
+    tag_controller = TagController(session=session)
+
     # This checks, which tags already exist in the database and queries them
-    existing_tags = session.query(Tag.tag).all()
+    existing_tags = tag_controller.list()
 
     # This flattens the list of tuples into a list
-    existing_tags = [list(x) for x in existing_tags]
-    existing_tags = [item for sublist in existing_tags for item in sublist]
+    existing_tags = [tag.tag for tag in existing_tags]
 
     # Since we did not yet define a class for this, we split by comma, this is DIRTY NEEDS TO BE BETTER!!!!!!
-    tags = tags[0].split(",")
+    tags = [tag.strip() for tag in tags.split(",")]
 
     # Exclude the tags that already exist
     non_existing_tags = [tag for tag in tags if tag not in existing_tags]
 
     # Write the tags that are not in the database, so that we get an id for them
     for tag in non_existing_tags:
-        await create_tag(tag = tag,session = session)
+        tag_controller.create(tag=tag)
 
     ## Image Validation
 
     # 1 cheapest validation as first method just checking extension
-    extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png","JPEG","PNG")
+    extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png", "JPEG", "PNG")
     if not extension:
-        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png. Maybe your file extension is not specified or erroneous.")
-    
+        raise HTTPException(status_code=415,
+                            detail="Only accepts jpg/jpeg and png. Maybe your file extension is not specified or erroneous.")
+
     # 2 more expensive image validation, first checking format, then trying to verify with pillow
     try:
-        im = pil_image.open(fp = file.file)
+        im = pil_image.open(fp=file.file)
         extension = im.format in ("JPEG", "JPEG 2000", "PNG")
-        if not extension:
-            raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted.")
 
-        #2a validation through verify method of pillow library
-        im.verify() 
+        if not extension:
+            raise HTTPException(status_code=415,
+                                detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted.")
+
+        # 2a validation through verify method of pillow library
+        im.verify()
         im.close()
 
         # 2b verification through simple transpose method which would uncover truncated images
-        im = pil_image.open(fp = file.file)
-        im.transpose(method = PIL.Image.ROTATE_180)
+        im = pil_image.open(fp=file.file)
+        im.transpose(method=PIL.Image.ROTATE_180)
     except:
-        raise HTTPException(status_code=415, detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted.")
+        raise HTTPException(status_code=415,
+                            detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted.")
 
     # create uuid, so that it can use it for filename
     uuid = str(uuid4().hex)
-    
+
     # save pillow image object
-    im.save(os.path.join("images", uuid+ ".jpeg"), "JPEG")
-    # create database dictionary with the necessary information
-    image_dict = {"image_id": uuid, "caption": caption }
+    im.save(os.path.join("images", uuid + ".jpeg"), "JPEG")
     # create a new image instance
-    db_image = Image(**image_dict)
+    db_image = Image(id=uuid, caption=caption)
     # register image in session
     session.add(db_image)
     # save changes in database
@@ -108,23 +111,25 @@ async def create_image(caption: str, tags: List, file: UploadFile = File(...), s
 
     ## Create image_tags database
     # get the tag ids
-    tag_ids = session.query(Tag.tag_id).filter(Tag.tag.in_(tags)).all()
-    tag_ids = [r[0] for r in tag_ids]
+    tags = session.query(Tag).filter(Tag.tag.in_(tags)).all()
 
     # write a image_tag instance
-    for tag_id in tag_ids:
-        await create_images_tags(tag_id = tag_id, image_id= uuid, session = session)
-
+    for tag in tags:
+        # register image_tag in session
+        session.add(ImageTag(tag_id=tag.id, image_id=db_image.id))
+    # save changes in database
+    session.commit()
     return db_image
 
-@router.get("", response_model=ReadImageList)
+
+@router.get("", response_model=List[ReadImage])
 def list_images(session: Session = Depends(get_session)) -> List[Image]:
-  """List all images in the database.
+    """List all images in the database.
 
-  Args:
-      session (Session, optional): SQLAlchemy Session. Defaults to Depends(get_session).
+    Args:
+        session (Session, optional): SQLAlchemy Session. Defaults to Depends(get_session).
 
-  Returns:
-      List[Image]: A list with database image instances.
-  """
-  return session.query(Image).all()
+    Returns:
+        List[Image]: A list with database image instances.
+    """
+    return session.query(Image).all()
