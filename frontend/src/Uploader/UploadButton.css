@@ -1,9 +1,10 @@
 .upload-button button {
-  position: absolute;
+  position: relative;
   width: 246px;
   height: 80px;
-  left: 606px;
-  top: 649px;
+  top: 500px;
+  display: block;
+  margin: 0 auto;
   color: white;
   font-size: 28px;
   background: #9611ff;
@@ -12,6 +13,10 @@
   border-radius: 70px;
 }
 
+.upload-button button:hover {
+  background: white;
+  color: #9611ff;
+}
 .upload-modal {
   position: relative;
   width: 884px;

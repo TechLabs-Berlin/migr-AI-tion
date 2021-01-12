@@ -4,21 +4,21 @@ import PostForm from "./PostForm";
 import "./UploadButton.css";
 
 export default function UploadButton() {
-  const [show, setShow] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
 
   function openModal() {
-    setShow(true);
+    setShowModal(true);
   }
 
   function closeModal() {
-    setShow(false);
+    setShowModal(false);
   }
   return (
     <div className="upload-button">
       <button onClick={openModal}>Upload</button>
       <ReactModal
         className="upload-modal"
-        isOpen={show}
+        isOpen={showModal}
         onRequestClose={closeModal}
       >
         <PostForm />

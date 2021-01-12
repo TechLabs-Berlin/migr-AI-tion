@@ -1,33 +1,39 @@
 .project-intro-page h3 {
   position: absolute;
-  width: 1013px;
-  height: 208px;
-  left: 220px;
-  top: 255px;
 
-  font-family: Roboto;
+  padding: 50px;
+  width: 1013px;
+  height: 260px;
+  left: 150px;
+  top: 100px;
+  border: solid #9611ff 8px;
+  border-radius: 15px;
+  font-family: Sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
   line-height: 26px;
   display: flex;
-  align-items: center;
 
   color: #668389;
 }
 
-.project-intro-page h4 {
-  position: absolute;
-  width: 179px;
-  height: 35px;
-  left: 639px;
-  top: 568px;
-
-  font-family: Roboto;
+.project-intro-page button {
+  background-color: white;
+  border: none;
+  position: relative;
+  top: 475px;
+  display: block;
+  margin: 0 auto;
+  font-family: Sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 30px;
   line-height: 35px;
 
   color: #668389;
+}
+
+.project-intro-page button:hover {
+  color: #9611ff;
 }
