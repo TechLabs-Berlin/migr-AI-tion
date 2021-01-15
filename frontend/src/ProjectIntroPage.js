@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./ProjectIntroPage.css";
 import UploadModal from "./Uploader/UploadModal";
 
-export default function ProjectIntroPage(props) {
+export default function ProjectIntroPage() {
   const [showButton, setShowButton] = useState(false);
   const [openModal, setOpenModal] = React.useState(false);
 
