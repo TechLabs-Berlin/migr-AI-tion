@@ -6,7 +6,7 @@
   height: 260px;
   left: 150px;
   top: 100px;
-  border: solid #9611ff 8px;
+  border: solid #9611ff 5px;
   border-radius: 15px;
   font-family: Sans-serif;
   font-style: normal;
@@ -17,14 +17,12 @@
 
   color: #668389;
 }
-
-.project-intro-page button {
+button.collaborate-button {
+  position: absolute;
   background-color: white;
   border: none;
-  position: relative;
-  top: 475px;
-  display: block;
-  margin: 0 auto;
+  top: 562px;
+  left: 640px;
   font-family: Sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -34,6 +32,28 @@
   color: #668389;
 }
 
-.project-intro-page button:hover {
+button.collaborate-button:hover {
   color: #9611ff;
+}
+
+button.upload {
+  position: absolute;
+  width: 246px;
+  height: 80px;
+  left: 606px;
+  top: 649px;
+
+  background: #9611ff;
+  border: 3px solid #9611ff;
+  box-sizing: border-box;
+  border-radius: 70px;
+
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 35px;
+  text-align: center;
+
+  color: #ffffff;
 }

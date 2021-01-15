@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import "./ProjectIntroPage.css";
-import UploadButton from "./Uploader/UploadButton";
+import UploadModal from "./Uploader/UploadModal";
 
-export default function ProjectIntroPage() {
+export default function ProjectIntroPage(props) {
   const [showButton, setShowButton] = useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
 
   const handleClick = () => {
     setShowButton(true);
+  };
+
+  const handleOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
   };
   return (
     <div className="project-intro-page">
@@ -28,9 +37,19 @@ export default function ProjectIntroPage() {
           chance to participate in the development of new technologies and the
           future media landscape.
         </h3>
-        <button onClick={handleClick}> Collaborate! </button>
+        <button class="collaborate-button" onClick={handleClick}>
+          {" "}
+          Collaborate!{" "}
+        </button>
       </section>
-      {showButton && <UploadButton />}
+      {showButton && (
+        <div>
+          <button class="upload" type="button" onClick={handleOpen}>
+            Upload now
+          </button>
+          <UploadModal open={openModal} onClose={handleClose} />
+        </div>
+      )}
     </div>
   );
 }
