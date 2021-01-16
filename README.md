@@ -30,7 +30,7 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 ## How To Use
 
 ### Installation
-jhkhkjhkjhkjhjk
+USE PYTHON
 
 ### Frontend set-up
 (general text regarding frontend)
