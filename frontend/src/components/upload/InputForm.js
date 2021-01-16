@@ -3,7 +3,8 @@ import axios from "axios";
 import TagsInput from "./TagsInput";
 import ImageCaption from "./ImageCaption";
 import CircularProgressWithLabel from "./ProgressIcon";
-import "./InputForm.css";
+import Button from "@material-ui/core/Button";
+import FileInput from "./FileInput";
 
 export default function UploadForm() {
   const [image, setImage] = React.useState(null);
@@ -12,25 +13,24 @@ export default function UploadForm() {
   const [caption, setCaption] = React.useState(null);
   const [progress, setProgress] = React.useState(10);
 
-  const enteredCaption = props => {
-    console.log(caption);
-    setCaption(props.event.target.value);
+  const enteredCaption = caption => {
+    setCaption(caption);
   };
   const selectedTags = tags => {
-    console.log(tags);
-    setTags(...tags);
+    setTags(tags);
   };
 
-  const handleImageSelection = event => {
-    console.log(event.target.files[0]);
-    setImage(event.target.files[0]);
+  const selectedImage = img => {
+    setImage(img);
   };
 
   async function postData() {
+    console.log(tags);
+    console.log(tags.join(","));
     setProgress(true);
     let formData = new FormData();
     formData.append("file", image);
-    formData.append("tags", tags);
+    formData.append("tags", tags.join(","));
     formData.append("caption", caption);
     await axios
       .post("http://localhost:8000/images", formData)
@@ -42,12 +42,7 @@ export default function UploadForm() {
 
   return (
     <div className="save-form">
-      <label>
-        <input type="file" accept="image/*" onChange={handleImageSelection} />
-      </label>
-
-      <img className="loaded-image" src={src} alt="img" />
-
+      <FileInput selectedImage={selectedImage}></FileInput>
       <TagsInput selectedTags={selectedTags} />
       <br />
       <ImageCaption enteredCaption={enteredCaption} />
@@ -56,10 +51,9 @@ export default function UploadForm() {
         <div className="load-icon">
           <CircularProgressWithLabel value={progress} />
         </div>
-        <button className="save-button" disabled={progress} onClick={postData}>
-          Save
-        </button>
       </div>
+
+      <Button onClick={postData}>Save</Button>
     </div>
   );
 }

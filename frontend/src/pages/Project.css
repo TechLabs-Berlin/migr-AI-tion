@@ -1,0 +1,11 @@
+.project-intro-text h3 {
+  padding: 50px;
+  border: solid #9611ff 5px;
+  border-radius: 15px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 26px;
+  display: flex;
+  color: #668389;
+}
