@@ -1,0 +1,35 @@
+.save-form {
+  padding-left: 21px;
+  padding-right: 15px;
+  position: relative;
+  top: 350px;
+}
+.save-form .save-data button {
+  background: #9611ff;
+
+  border: none;
+  position: relative;
+  padding-left: 65px;
+  padding-right: 65px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  left: 650px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 29px;
+  line-height: 34px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #ffffff;
+}
+
+loaded-image img {
+  width: 884px;
+  height: 407px;
+  left: 273px;
+  top: 245px;
+}

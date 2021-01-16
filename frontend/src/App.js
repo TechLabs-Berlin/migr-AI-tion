@@ -1,10 +1,13 @@
+import React from "react";
 import "./App.css";
-import Uploader from "./Uploader";
+import ProjectIntroPage from "./ProjectIntroPage";
+import NavBar from "./NavBar";
 
 function App() {
   return (
     <div className="App">
-      <Uploader />
+      <NavBar />
+      <ProjectIntroPage />
     </div>
   );
 }
