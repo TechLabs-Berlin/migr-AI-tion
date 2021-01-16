@@ -1,0 +1,7 @@
+.m-app-bar .title {
+  flex-grow: 1;
+}
+
+.m-app-bar .text {
+  color: #9611ff;
+}
