@@ -1,7 +1,6 @@
 # import type hintes
 from typing import Dict
 
-
 # import dependencies
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,7 +9,7 @@ from fastapi.staticfiles import StaticFiles # required to bind a phyisical folde
 from database.database import engine
 from database.base import Base
 from router import images
-from router import annotations
+from router import tags
 
 # create migrations
 Base.metadata.create_all(bind=engine)
@@ -26,5 +25,5 @@ allow_methods=["*"])
 app.mount(path="/images", app=StaticFiles(directory="images"), name="static")
 
 # register routers
-app.include_router(router = images.router, prefix = "/images")
-app.include_router(router=annotations.router, prefix="/annotations")
+app.include_router(router=images.router, prefix="/images")
+app.include_router(router=tags.router, prefix="/tags")
