@@ -30,6 +30,27 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 ## How To Use
 
 ### Installation
+
+### Pull files from GitHub
+Create a new folder "migr-AI-tion" for this project on your computer.
+Than open the GitBash with the right click on the folder sign and use following commands to pull the files from GitHub:
+
+```bash
+git init
+```
+```bash
+git remote add origin https://github.com/TechLabs-Berlin/migr-AI-tion.git
+```
+```bash
+git pull
+```
+```bash
+git checkout main
+```
+```bash
+git status
+```
+
 ### Setting up infrastructure for Mac
 
 #### 1: Setting up virtual environment 
@@ -70,27 +91,6 @@ If successfully installed, you should see the following output in the terminal:
 INFO:     Uvicorn running on http://127.0.0.1:8000 
 ```
 And depending with your local set-up you can interact with the API on the above seen IP. For example appending /docs will allow you to test your created endpoints. For further information, see the documentation of [FastAPI](https://fastapi.tiangolo.com/). 
-
-### Setting up infrastructure for Windows
-### Pull files from GitHub
-Create a new folder "migr-AI-tion" for this project on your computer.
-Than open the GitBash with the right click on the folder sign and use following commands to pull the files from GitHub:
-
-```bash
-git init
-```
-```bash
-git remote add origin https://github.com/TechLabs-Berlin/migr-AI-tion.git
-```
-```bash
-git pull
-```
-```bash
-git checkout main
-```
-```bash
-git status
-```
 
 ### Setting up infrastructure for Windows
 
