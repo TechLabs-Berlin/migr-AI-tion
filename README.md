@@ -72,8 +72,64 @@ INFO:     Uvicorn running on http://127.0.0.1:8000
 And depending with your local set-up you can interact with the API on the above seen IP. For example appending /docs will allow you to test your created endpoints. For further information, see the documentation of [FastAPI](https://fastapi.tiangolo.com/). 
 
 ### Setting up infrastructure for Windows
-@Michelle hier für dich! Obrigen Text copy/paste, dann einfach anpassen!
+### Pull files from GitHub
+Create a new folder "migr-AI-tion" for this project on your computer.
+Than open the GitBash with the right click on the folder sign and use following commands to pull the files from GitHub:
 
+```bash
+git init
+```
+```bash
+git remote add origin https://github.com/TechLabs-Berlin/migr-AI-tion.git
+```
+```bash
+git pull
+```
+```bash
+git checkout main
+```
+```bash
+git status
+```
+
+### Setting up infrastructure for Windows
+
+#### 1: Setting up virtual environment 
+You require an up-to-date Python 3 version as well as `pip`. 
+```bash
+C:\Users\migr-AI-tion>python -m venv venv
+C:\Users\migr-AI-tion>venv\Scripts\Activate.ps1
+```
+
+#### 2: Installing requirements
+Please note the 'venv' addition to your terminal to ensure that you successfully set-up the virtual environment. 
+```bash
+(venv) C:\Users\migr-AI-tion>cd backend
+(venv) C:\Users\migr-AI-tion\backend>pip install -r requirements.txt
+```
+
+#### 3: Starting FastAPI app
+The uvicorn command starts the ASGI app which is located in the src folder. 
+```bash
+(venv) C:\Users\migr-AI-tion\backend>cd src
+(venv) C:\Users\migr-AI-tion\backend\src>uvicorn main:app --reload
+```
+If you encounter the following error, you have to create a new folder in the backend called /images. 
+```bash
+RuntimeError: Directory 'images' does not exist
+```
+For that you have to quit the app by pressing `CTRL+C` and create the directory 'images'. 
+```bash
+(venv) C:\Users\migr-AI-tion\backend\src>mkdir images
+(venv) C:\Users\migr-AI-tion\backend\src>uvicorn main:app --reload
+```
+
+#### 4: Interacting with the app 
+If successfully installed, you should see the following output in the terminal: 
+```bash
+INFO:     Uvicorn running on http://127.0.0.1:8000 
+```
+And depending with your local set-up you can interact with the API on the above seen IP. For example appending /docs will allow you to test your created endpoints. For further information, see the documentation of [FastAPI](https://fastapi.tiangolo.com/).
 
 ### Frontend set-up
 (general text regarding frontend)
