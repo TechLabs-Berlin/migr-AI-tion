@@ -33,19 +33,39 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 
 ### Pull files from GitHub
 Create a new folder "migr-AI-tion" for this project on your computer.
-Than open the GitBash with the right click on the folder sign and use following commands to pull the files from GitHub:
+Than open the GitBash with the right click on the folder sign and use following commands to pull the files from GitHub. *Also pull before you start working on files, which you work on together with others. So you use the latest version of the files.*
 
 ```bash
-git init
+git clone
 ```
 ```bash
-git remote add origin https://github.com/TechLabs-Berlin/migr-AI-tion.git
-```
-```bash
-git pull
+git status
 ```
 ```bash
 git checkout main
+```
+```
+git pull
+```
+### Push changes to GitHub
+First create a new branch, so you don't push to the main branch. Than switch to the branch and commit your changes.
+```bash
+git branch <branchname>
+```
+```bash
+git checkout <branchname>
+```
+```bash
+git status
+```
+```bash
+git add .
+```
+```bash
+git commit -m "<message/changes>"
+```
+```bash
+git push
 ```
 ```bash
 git status
