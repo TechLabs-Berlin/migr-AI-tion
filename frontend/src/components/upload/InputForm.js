@@ -9,7 +9,7 @@ import FileInput from "./FileInput";
 export default function UploadForm() {
   const [image, setImage] = React.useState(null);
   const [src, setSrc] = React.useState(null);
-  const [tags, setTags] = React.useState(null);
+  const [tags, setTags] = React.useState([]);
   const [caption, setCaption] = React.useState(null);
   const [loadProgress, setLoadProgress] = React.useState(false);
 
