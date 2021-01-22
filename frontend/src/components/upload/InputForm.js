@@ -11,7 +11,7 @@ export default function UploadForm() {
   const [src, setSrc] = React.useState(null);
   const [tags, setTags] = React.useState([]);
   const [caption, setCaption] = React.useState(null);
-  const [loadProgress, setLoadProgress] = React.useState(false);
+  const [uploadProgress, setUploadProgress] = React.useState(false);
 
   const enteredCaption = (caption) => {
     setCaption(caption);
@@ -27,17 +27,22 @@ export default function UploadForm() {
   async function postData() {
     console.log(tags);
     console.log(tags.join(","));
-    setLoadProgress(true);
+
     let formData = new FormData();
     formData.append("file", image);
     formData.append("tags", tags.join(","));
     formData.append("caption", caption);
+    const config = {
+      onUploadProgress: () => {
+        setUploadProgress(true);
+      },
+    };
     await axios
-      .post("http://localhost:8000/images", formData)
+      .post("http://localhost:8000/images", formData, config)
       .then((response) => {
         setSrc(`http://localhost:8000/images/${response.data.id}.jpeg`);
       });
-    setLoadProgress(false);
+    setUploadProgress(false);
   }
 
   return (
@@ -49,7 +54,7 @@ export default function UploadForm() {
 
       <div className="save-data">
         <Button onClick={postData}> Save </Button>
-        {loadProgress && <CircularStatic />}
+        {uploadProgress && <CircularStatic />}
       </div>
     </div>
   );
