@@ -101,7 +101,7 @@ def create_image(caption: str = Form(...), tags: str = Form(...), file: UploadFi
 
     # save pillow image object
 
-    im.save(os.path.join("images_storage", uuid + ".jpeg"), "JPEG")
+    im.save(os.path.join("images", uuid + ".jpeg"), "JPEG")
     # create a new image instance
     db_image = Image(id=uuid, caption=caption)
     # register image in session

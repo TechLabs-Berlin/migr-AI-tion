@@ -1,22 +1,12 @@
 import React, { useState } from 'react'
-import { Card, CardContent, CircularProgress, Grid, CardMedia, Typography, Toolbar, TextField } from '@material-ui/core';
-import { CarouselData } from './CarouselData'
-import { formatMs, makeStyles } from '@material-ui/core/styles';
-import './Carodex.css';
-import { AiOutlineSearch, AiFillCaretRight, AiFillCaretLeft, AiOutlineClose, AiOutlineNumber } from "react-icons/ai";
 import axios from "axios";
 
 
-const useStyles = makeStyles({
-})
 
 
-
-
-const Searchbar2 = ({ vals }) => {
-    const classes = useStyles();
+const Searchbar2 = () => {
     const [ready, setReady] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('all');
+    const [searchTerm, setSearchTerm] = useState(null);
     const [tagsList, setTagsList] = useState(false);
     const [image, setImage] = useState(false);
 
@@ -27,39 +17,51 @@ const Searchbar2 = ({ vals }) => {
         setImage(`http://localhost:8000/images/${response.data.id}.jpeg`);
     }
 
-    const handleSearch = (event) => {
-        {/*      let apiKey = "#";  
-        let apiUrl = `${searchTerm}  ${apiKey}`;
-        axios.get(apiUrl).then{ handleResponse }; */ }
+    const handleSearch = () => {
+        axios
+            .get(`http://127.0.0.1:8000/images/${searchTerm}.jpeg`)
+            .then(handleResponse);
     }
 
     const submitSearch = (event) => {
         setSearchTerm(event.target.value);
         console.log(event.target.value);
+        handleSearch();
     }
+
+    const handleEnterKeyPressed = (e) => {
+        if (e.key === 'Enter') {
+            submitSearch();
+        }
+    }
+
 
 
     return (
         <div>
             <form onSubmit={submitSearch}>
                 <div>
-                    <Toolbar style={{ display: 'flex', paddingTop: '10%', }}>
-                        <div className={classes.searchCont}>
-                            <AiOutlineSearch className={classes.searchIcon} />
-                            <TextField
-                                id="filled-full-width" className={classes.searchTextfield}
-                                placeholder="search.."
-                                onChange={handleSearch} />
-                        </div>
-                    </Toolbar>
+                    <div className="control">
+                        <input
+                            className="input"
+                            onChange={handleEnterKeyPressed}
+                            type="text"
+                            placeholder="Search image.." />
+                    </div>
+                    <div>
+                        <input
+                            type="Submit"
+                            value="Search"
+                        />
+                    </div>
                 </div>
             </form>
 
 
-            { ready && (<div className='user' key={key}>
+            { ready && (<div className='user'>
                 <ul>
                     <li> <span>{tagsList}</span></li>
-                    <li> <img src={image} /></li>
+                    <li> <img src={image} alt="img" /></li>
                 </ul>
             </div>)}
         </div>
