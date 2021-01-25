@@ -21,9 +21,8 @@ router = APIRouter()
 # D = DELETE -> @router.delete("/{id}")
 # L = LIST -> @router.get("")
 
-
 @router.get("")
-def list_tags(session: Session = Depends(get_session)) -> List[Tag]:
+def list_tags(counts: str = None, session: Session = Depends(get_session)) -> List[Tag]:
     """[summary]
 
     Args:
@@ -32,6 +31,19 @@ def list_tags(session: Session = Depends(get_session)) -> List[Tag]:
     Returns:
         List[Tag]: [description]
     """
-    # initialize tag contoller
-    tag_controller = TagController(session=session)
-    return tag_controller.list()
+    if counts is None:
+        # initialize tag contoller
+        tag_controller = TagController(session=session)
+        return tag_controller.list()
+    elif counts == "edges":
+        result = session.execute('SELECT a.tag_id "to", b.tag_id "from", COUNT(*) "value" FROM images_tags a	JOIN images_tags b ON b.image_id = a.image_id	AND b.tag_id > a.tag_id	GROUP BY a.tag_id,		b.tag_id')
+        list = []
+        for row in result:
+            list.append(row)
+        return list
+    elif counts == "nodes":
+        result = session.execute('SELECT ALL images_tags.tag_id id,t.tag"label",COUNT(*)"value" FROM images_tags LEFT JOIN tags t ON images_tags.tag_id=t.id GROUP BY images_tags.tag_id')
+        list = []
+        for row in result:
+            list.append(row)
+        return list   
