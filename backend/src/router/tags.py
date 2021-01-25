@@ -4,12 +4,15 @@ from sqlalchemy.orm import Session
 
 # import dependencies
 import os
+import json
 from fastapi import APIRouter, Depends, HTTPException
 from uuid import uuid4  # this is for creating image ids
 from uuid import UUID
 from database.database import get_session
 from models.tags import Tag
 from controllers.tags import TagController
+
+
 
 # intialize new router
 router = APIRouter()
@@ -46,4 +49,4 @@ def list_tags(counts: str = None, session: Session = Depends(get_session)) -> Li
         list = []
         for row in result:
             list.append(row)
-        return list   
+        return list
