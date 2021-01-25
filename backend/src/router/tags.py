@@ -25,7 +25,7 @@ router = APIRouter()
 # L = LIST -> @router.get("")
 
 @router.get("")
-def list_tags(counts: str = None, session: Session = Depends(get_session)) -> List[Tag]:
+def list_tags(counts: bool = False, session: Session = Depends(get_session)) -> List[Tag]:
     """[summary]
 
     Args:
@@ -34,19 +34,17 @@ def list_tags(counts: str = None, session: Session = Depends(get_session)) -> Li
     Returns:
         List[Tag]: [description]
     """
-    if counts is None:
+    if counts is False:
         # initialize tag contoller
         tag_controller = TagController(session=session)
         return tag_controller.list()
-    elif counts == "edges":
-        result = session.execute('SELECT a.tag_id "to", b.tag_id "from", COUNT(*) "value" FROM images_tags a	JOIN images_tags b ON b.image_id = a.image_id	AND b.tag_id > a.tag_id	GROUP BY a.tag_id,		b.tag_id')
-        list = []
+    else:
+        result = session.execute('SELECT a.tag_id "source", b.tag_id "target", COUNT(*) "value" FROM images_tags a	JOIN images_tags b ON b.image_id = a.image_id	AND b.tag_id > a.tag_id	GROUP BY a.tag_id,		b.tag_id')
+        links = []
         for row in result:
-            list.append(row)
-        return list
-    elif counts == "nodes":
-        result = session.execute('SELECT ALL images_tags.tag_id id,t.tag"label",COUNT(*)"value" FROM images_tags LEFT JOIN tags t ON images_tags.tag_id=t.id GROUP BY images_tags.tag_id')
-        list = []
+            links.append(row)
+        result = session.execute('SELECT ALL images_tags.tag_id id,t.tag "name",COUNT(*) "value" FROM images_tags LEFT JOIN tags t ON images_tags.tag_id=t.id GROUP BY images_tags.tag_id')
+        nodes = []
         for row in result:
-            list.append(row)
-        return list
+            nodes.append(row)
+        return {"nodes": nodes, "links": links}
