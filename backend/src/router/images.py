@@ -18,6 +18,9 @@ from controllers.tags import TagController
 
 from views.responses.images import ReadImage
 
+from tf_model.tf import predict, load_model
+
+
 # initialize new router
 router = APIRouter()
 
@@ -143,5 +146,12 @@ def list_images(tag: str = None, session: Session = Depends(get_session)) -> Lis
         # return session.query(Image).filter(Image.id.in_(subquery)).all()
 
         return session.query(Image).filter(Image.tags.any(Tag.tag.like(f"%{tag}%"))).all()
+ 
+
+@router.get("another/something/prediction")
+def list_images(id: str):
+    image = pil_image.open("images/"+id+".jpeg")
+    prediction = predict(image)
+    return prediction
  
 
