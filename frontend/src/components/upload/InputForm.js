@@ -5,6 +5,7 @@ import ImageCaption from "./ImageCaption";
 import CircularStatic from "./ProgressIcon";
 import Button from "@material-ui/core/Button";
 import FileInput from "./FileInput";
+import "./InputForm.css";
 
 export default function UploadForm() {
   const [image, setImage] = React.useState(null);
@@ -51,9 +52,12 @@ export default function UploadForm() {
       <TagsInput selectedTags={selectedTags} />
       <br />
       <ImageCaption enteredCaption={enteredCaption} />
-
+      <br />
       <div className="save-data">
-        <Button onClick={postData}> Save </Button>
+        <Button className="save-button" palette="primary" onClick={postData}>
+          {" "}
+          Save{" "}
+        </Button>
         {uploadProgress && <CircularStatic />}
       </div>
     </div>
