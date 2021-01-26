@@ -5,3 +5,11 @@
 .m-app-bar .text {
   color: #9611ff;
 }
+
+.text:hover {
+  background-color: none;
+}
+
+.pages:hover {
+  text-decoration: underline;
+}
