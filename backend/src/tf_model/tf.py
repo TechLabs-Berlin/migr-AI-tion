@@ -17,7 +17,7 @@ def predict(image: pil_image.Image):
     image = np.expand_dims(image, 0)
     image = image / 127.5 - 1.0
     
-    result = decode_predictions(model.predict(image), 2)[0]
+    result = decode_predictions(model.predict(image), 4)[0]
     
     response = []
     
