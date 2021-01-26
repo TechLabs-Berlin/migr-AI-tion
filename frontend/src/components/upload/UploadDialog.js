@@ -61,7 +61,7 @@ export default function CustomizedDialogs() {
   return (
     <div>
       <Button className="upload-button" onClick={handleClickOpen}>
-        Collaborate
+        <b>Collaborate</b>
       </Button>
 
       <Dialog
