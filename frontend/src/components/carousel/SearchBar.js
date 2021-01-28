@@ -12,7 +12,9 @@ function SearchBar(props) {
 
     const handleEnterKeyPressed = (e) => {
         if (e.key === 'Enter') {
+            console.log("1");
             onSearch(searchText)
+            console.log(searchText);
         }
     }
 

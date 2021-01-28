@@ -2,13 +2,14 @@ import { Card, Typography } from '@material-ui/core'
 import React from 'react'
 
 function Card2(props) {
-    const { movie } = props;
+    const { post } = props;
+    {/*   const image = `http://127.0.0.1:8000/images?tag=` */ }
     return (
         <div className="resultCard">
             <Card>
-                <img src={movie.Poster} alt={movie.Title} />
-                <Typography>{movie.Title}</Typography>
-                <span>{movie.Year}</span>
+                {/*   <img src={post.image} alt={movie.Title} /> */}
+                <Typography>{post.tag}</Typography>
+                <span>{post.id}</span>
             </Card>
         </div>
     )

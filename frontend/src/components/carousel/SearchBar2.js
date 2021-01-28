@@ -1,73 +1,57 @@
-import React, { useState } from 'react'
-import { Card, CardContent, CircularProgress, Grid, CardMedia, Typography, Toolbar, TextField } from '@material-ui/core';
-import { CarouselData } from './CarouselData'
-import { formatMs, makeStyles } from '@material-ui/core/styles';
-import './Carodex.css';
-import { AiOutlineSearch, AiFillCaretRight, AiFillCaretLeft, AiOutlineClose, AiOutlineNumber } from "react-icons/ai";
-import axios from "axios";
-
-
-const useStyles = makeStyles({
-})
+import React, { useState, useEffect } from 'react'
 
 
 
+export default function Searchbar2() {
+    const [search, setSearch] = useState('');
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
 
-const Searchbar2 = ({ vals }) => {
-    const classes = useStyles();
-    const [ready, setReady] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('all');
-    const [tagsList, setTagsList] = useState(false);
-    const [image, setImage] = useState(false);
-
-    const handleResponse = (response) => {
-        console.log(response.data.list);
-        setReady(true);
-        setTagsList(response.data.list);
-        setImage(`http://localhost:8000/images/${response.data.id}.jpeg`);
+    function onSubmit(e) {
+        e.preventDefault();
+        setQuery(search);
+        console.log(search);
     }
 
-    const handleSearch = (event) => {
-        {/*      let apiKey = "#";  
-        let apiUrl = `${searchTerm}  ${apiKey}`;
-        axios.get(apiUrl).then{ handleResponse }; */ }
-    }
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/images?tag=${query}`);
+                const json = await response.json();
+                console.log({ json });
+                setResults(
+                    json.map(item => {
+                        return item.id;
+                    })
+                )
+            } catch (error) { }
+        }
 
-    const submitSearch = (event) => {
-        setSearchTerm(event.target.value);
-        console.log(event.target.value);
-    }
+        if (query !== '') {
+            fetchData();
+        }
+    }, [query])
 
 
     return (
         <div>
-            <form onSubmit={submitSearch}>
-                <div>
-                    <Toolbar style={{ display: 'flex', paddingTop: '10%', }}>
-                        <div className={classes.searchCont}>
-                            <AiOutlineSearch className={classes.searchIcon} />
-                            <TextField
-                                id="filled-full-width" className={classes.searchTextfield}
-                                placeholder="search.."
-                                onChange={handleSearch} />
-                        </div>
-                    </Toolbar>
-                </div>
+            <h1>Search</h1>
+            <form onSubmit={onSubmit}>
+                <input
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    placeholder="Search tags.."
+                />
+                <button type="submit">Search</button>
             </form>
+            <br />
+            {results.map(item => {
 
-
-            { ready && (<div className='user' key={key}>
-                <ul>
-                    <li> <span>{tagsList}</span></li>
-                    <li> <img src={image} /></li>
-                </ul>
-            </div>)}
+                <img key={item} src={`http://localhost:8000/images/${item}.jpeg`}
+                    alt="img-result" />
+                console.log(`http://localhost:8000/images/${item}.jpeg`);
+            }
+            )}
         </div>
     );
 }
-
-
-
-
-
-export default Searchbar2;
