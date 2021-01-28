@@ -18,8 +18,8 @@ export default function Project() {
               </u>
               <br />
               is an art, documentary and tech project inspired by new
-              possibilities of <mark>storytelling</mark> through data. We focus
-              on migration issues and representing <mark> migrant voices</mark>{" "}
+              possibilities for <mark>storytelling</mark> with data. We focus on
+              migration issues and representing <mark> migrant voices</mark>{" "}
               that are not heard in the mainstream media. Our methods are
               collaborative and participatory, and we aim to bring more public
               awareness to issues such as <b> data literacy</b>,{" "}
