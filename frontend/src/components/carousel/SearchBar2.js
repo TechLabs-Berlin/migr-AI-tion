@@ -1,4 +1,9 @@
+import { Card, CardContent, Typography, Chip, Avatar } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { AiOutlineNumber } from "react-icons/ai";
 
 
 
@@ -13,6 +18,10 @@ export default function Searchbar2() {
         console.log(search);
     }
 
+    function onSearch(e) {
+        setSearch(e.target.value);
+    }
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -20,9 +29,7 @@ export default function Searchbar2() {
                 const json = await response.json();
                 console.log({ json });
                 setResults(
-                    json.map(item => {
-                        return item.id;
-                    })
+                    json
                 )
             } catch (error) { }
         }
@@ -32,6 +39,13 @@ export default function Searchbar2() {
         }
     }, [query])
 
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
     return (
         <div>
@@ -39,19 +53,45 @@ export default function Searchbar2() {
             <form onSubmit={onSubmit}>
                 <input
                     value={search}
-                    onChange={e => setSearch(e.target.value)}
+                    onChange={onSearch}
                     placeholder="Search tags.."
                 />
                 <button type="submit">Search</button>
             </form>
-            <br />
-            {results.map(item => {
-
-                <img key={item} src={`http://localhost:8000/images/${item}.jpeg`}
-                    alt="img-result" />
-                console.log(`http://localhost:8000/images/${item}.jpeg`);
-            }
-            )}
+            <div>
+                <Slider {...settings} style={{
+                    margin: "20px 20px"
+                }}>
+                    {results.map((item) => (
+                        <Card key={item.id} style={{
+                            overflow: "hidden",
+                            width: "500px",
+                            height: "500px"
+                        }}
+                        >
+                            <img
+                                style={{
+                                    width: "500px",
+                                    height: "500px",
+                                    margin: "auto"
+                                }}
+                                key={item.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
+                                alt="img-result" />
+                            <CardContent>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {item.caption}
+                                </Typography>
+                                {item.tags.map(posttag => {
+                                    console.log(posttag.tag);
+                                    return (
+                                        <Chip avatar={<Avatar><AiOutlineNumber /></Avatar>} label={posttag.tag} component="a" href="#chip" clickable />
+                                    )
+                                })}
+                            </CardContent>
+                        </Card>)
+                    )}
+                </Slider>
+            </div>
         </div>
     );
 }
