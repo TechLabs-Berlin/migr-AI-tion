@@ -8,6 +8,9 @@ import { AiOutlineNumber } from "react-icons/ai";
 
 
 export default function Searchbar2() {
+
+    {/*This is the const for Searchbar */ }
+
     const [search, setSearch] = useState('');
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
@@ -39,6 +42,8 @@ export default function Searchbar2() {
         }
     }, [query])
 
+    {/*This is the const for Carousel */ }
+
     var settings = {
         dots: true,
         infinite: true,
@@ -46,6 +51,8 @@ export default function Searchbar2() {
         slidesToShow: 1,
         slidesToScroll: 1
     };
+
+    {/*this is the searchbar part*/ }
 
     return (
         <div>
@@ -58,6 +65,9 @@ export default function Searchbar2() {
                 />
                 <button type="submit">Search</button>
             </form>
+
+            {/*This is the Carousel part*/}
+
             <div>
                 <Slider {...settings} style={{
                     margin: "20px 20px"
@@ -84,7 +94,7 @@ export default function Searchbar2() {
                                 {item.tags.map(posttag => {
                                     console.log(posttag.tag);
                                     return (
-                                        <Chip avatar={<Avatar><AiOutlineNumber /></Avatar>} label={posttag.tag} component="a" href="#chip" clickable />
+                                        <Chip avatar={<Avatar><AiOutlineNumber /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" clickable />
                                     )
                                 })}
                             </CardContent>

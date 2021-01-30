@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Searchbar2 from '../components/carousel/SearchBar2';
 
 
