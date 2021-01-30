@@ -6,8 +6,21 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  root: {
+    color: "#9611ff",
+    "&:hover": {
+      backgroundColor: "transparent",
+      textDecoration: "underline",
+      textDecorationColor: "#668389",
+    },
+  },
+});
 
 export default function Navigation() {
+  const classes = useStyles();
   return (
     <AppBar
       position="static"
@@ -17,25 +30,33 @@ export default function Navigation() {
     >
       <Toolbar>
         <Typography variant="h6" className="text title">
-          <Link to="/">Migr-AI-tion</Link>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            (logo)
+          </Link>
         </Typography>
 
-        <Link to="/project">
-          <Button color="inherit" className="text">
-            The project
-          </Button>
+        <Link
+          to="/project"
+          className="pages"
+          style={{ textDecoration: "none" }}
+        >
+          <Button className={classes.root}>The project</Button>
         </Link>
 
-        <Link to="/gallery">
-          <Button color="inherit" className="text">
-            Gallery
-          </Button>
+        <Link
+          to="/gallery"
+          className="pages"
+          style={{ textDecoration: "none" }}
+        >
+          <Button className={classes.root}>Gallery</Button>
         </Link>
 
-        <Link to="/contact">
-          <Button color="inherit" className="text">
-            Contact
-          </Button>
+        <Link
+          to="/contact"
+          className="pages"
+          style={{ textDecoration: "none" }}
+        >
+          <Button className={classes.root}>Contact</Button>
         </Link>
       </Toolbar>
     </AppBar>

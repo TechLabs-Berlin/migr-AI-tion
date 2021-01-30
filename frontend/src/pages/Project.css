@@ -6,6 +6,11 @@
   font-weight: 500;
   font-size: 22px;
   line-height: 26px;
-  display: flex;
+  display: block;
   color: #668389;
+}
+
+mark {
+  color: #668389;
+  background-color: #24e1ea;
 }
