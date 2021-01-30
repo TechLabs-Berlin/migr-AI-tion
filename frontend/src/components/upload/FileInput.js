@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
+import background from "./img/background.jpg";
 
 export default function UploadForm(props) {
   const [src, setSrc] = React.useState(null);
   const fileInput = useRef(null);
 
-  const handleImageSelection = event => {
+  const handleImageSelection = (event) => {
     props.selectedImage(event.target.files[0]);
 
     let file = event.target.files[0];
@@ -21,10 +22,24 @@ export default function UploadForm(props) {
 
   return (
     <div
-      style={{ width: "100%", height: "200px", border: "2px solid black" }}
+      className="image-input"
+      style={{
+        width: "100%",
+        height: "200px",
+        border: "2px solid",
+        borderRadius: "5px",
+        color: " #9611ff",
+        backgroundImage: `url(${background})`,
+        backgroundSize: "auto",
+      }}
       onClick={openFileInput}
     >
-      <img style={{ height: "100%" }} className="loaded-image" src={src} />
+      <img
+        style={{ height: "100%" }}
+        className="loaded-image"
+        src={src}
+        alt=""
+      />
 
       <label>
         <input
