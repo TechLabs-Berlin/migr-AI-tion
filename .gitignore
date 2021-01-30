@@ -1,0 +1,20 @@
+# ignore the following documents
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ignore sqlite database
+demo.db
+
+# ignore uploaded images in the images folder
+images/*.jpeg
+src/images/*.jpeg
+images/*
+
+# ignore ide settings folder
+.idea
+.vscode
+
+# ignore macos indexing files
+.DS_Store

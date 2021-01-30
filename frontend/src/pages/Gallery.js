@@ -7,11 +7,15 @@ function Gallery() {
   return (
     <div>
       <Searchbar2 />
-
     </div>
 
 
   )
+
+
+
+
+
 }
 
 export default Gallery;
