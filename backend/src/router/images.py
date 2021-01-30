@@ -123,9 +123,8 @@ def create_image(caption: str = Form(...), tags: str = Form(...), file: UploadFi
     session.commit()
     return db_image
 
-
 @router.get("", response_model=List[ReadImage])
-def list_images(session: Session = Depends(get_session)) -> List[Image]:
+def list_images(tag: str = None, session: Session = Depends(get_session)) -> List[Image]:
     """List all images in the database.
 
     Args:
@@ -134,4 +133,15 @@ def list_images(session: Session = Depends(get_session)) -> List[Image]:
     Returns:
         List[Image]: A list with database image instances.
     """
-    return session.query(Image).all()
+
+
+    if tag is None:
+        return session.query(Image).all()
+    else:
+        # subquery = session.query(Tag.id).filter(Tag.tag.like(f"%{tag}%")).subquery()
+        # subquery = session.query(ImageTag.image_id).filter(ImageTag.tag_id.in_(subquery))
+        # return session.query(Image).filter(Image.id.in_(subquery)).all()
+
+        return session.query(Image).filter(Image.tags.any(Tag.tag.like(f"%{tag}%"))).all()
+ 
+
