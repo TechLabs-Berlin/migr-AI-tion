@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import image from "./image.png";
+import background from "./img/background.jpg";
 
 export default function UploadForm(props) {
   const [src, setSrc] = React.useState(null);
@@ -29,7 +29,7 @@ export default function UploadForm(props) {
         border: "2px solid",
         borderRadius: "5px",
         color: " #9611ff",
-        backgroundImage: `url(${image})`,
+        backgroundImage: `url(${background})`,
         backgroundSize: "auto",
       }}
       onClick={openFileInput}
