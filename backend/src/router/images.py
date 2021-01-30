@@ -79,11 +79,13 @@ def create_image(caption: str = Form(...), tags: str = Form(...), file: UploadFi
     # 2 more expensive image validation, first checking format, then trying to verify with pillow
     try:
         im = pil_image.open(fp=file.file)
-        extension = im.format in ("JPEG", "JPEG 2000", "PNG")
+        im = im.convert('RGB')
+
+        extension = im.format in ("JPEG", "JPEG 2000", "PNG", None)
 
         if not extension:
             raise HTTPException(status_code=415,
-                                detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted.")
+                                detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted1.")
 
         # 2a validation through verify method of pillow library
         im.verify()
@@ -91,16 +93,16 @@ def create_image(caption: str = Form(...), tags: str = Form(...), file: UploadFi
 
         # 2b verification through simple transpose method which would uncover truncated images
         im = pil_image.open(fp=file.file)
+        im = im.convert('RGB')
         im.transpose(method=PIL.Image.ROTATE_180)
     except:
         raise HTTPException(status_code=415,
-                            detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted.")
+                            detail="Only accepts jpg/jpeg and png. Your file seems to have the correct extension, but is in the wrong format, truncated, or corrupted2.")
 
     # create uuid, so that it can use it for filename
     uuid = str(uuid4().hex)
 
     # save pillow image object
-
     im.save(os.path.join("images", uuid + ".jpeg"), "JPEG")
     # create a new image instance
     db_image = Image(id=uuid, caption=caption)
