@@ -1,75 +1,107 @@
-import React, { useState } from 'react'
-import axios from "axios";
+import { Card, CardContent, Typography, Chip, Avatar } from '@material-ui/core';
+import React, { useState, useEffect } from 'react'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { AiOutlineNumber } from "react-icons/ai";
 
 
 
+export default function Searchbar2() {
 
-const Searchbar2 = () => {
-    const [ready, setReady] = useState(false);
-    const [searchTerm, setSearchTerm] = useState(null);
-    const [tagsList, setTagsList] = useState(false);
-    const [image, setImage] = useState(false);
+    {/*This is the const for Searchbar */ }
 
-    const handleResponse = (response) => {
-        console.log(response.data.list);
-        setReady(true);
-        setTagsList(response.data.list);
-        setImage(`http://localhost:8000/images/${response.data.id}.jpeg`);
+    const [search, setSearch] = useState('');
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
+
+    function onSubmit(e) {
+        e.preventDefault();
+        setQuery(search);
+        console.log(search);
     }
 
-    const handleSearch = () => {
-        axios
-            .get(`http://127.0.0.1:8000/images/${searchTerm}.jpeg`)
-            .then(handleResponse);
+    function onSearch(e) {
+        setSearch(e.target.value);
     }
 
-    const submitSearch = (event) => {
-        setSearchTerm(event.target.value);
-        console.log(event.target.value);
-        handleSearch();
-    }
-
-    const handleEnterKeyPressed = (e) => {
-        if (e.key === 'Enter') {
-            submitSearch();
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/images?tag=${query}`);
+                const json = await response.json();
+                console.log({ json });
+                setResults(
+                    json
+                )
+            } catch (error) { }
         }
-    }
 
+        if (query !== '') {
+            fetchData();
+        }
+    }, [query])
 
+    {/*This is the const for Carousel */ }
+
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
+
+    {/*this is the searchbar part*/ }
 
     return (
         <div>
-            <form onSubmit={submitSearch}>
-                <div>
-                    <div className="control">
-                        <input
-                            className="input"
-                            onChange={handleEnterKeyPressed}
-                            type="text"
-                            placeholder="Search image.." />
-                    </div>
-                    <div>
-                        <input
-                            type="Submit"
-                            value="Search"
-                        />
-                    </div>
-                </div>
+            <h1>Search</h1>
+            <form onSubmit={onSubmit}>
+                <input
+                    value={search}
+                    onChange={onSearch}
+                    placeholder="Search tags.."
+                />
+                <button type="submit">Search</button>
             </form>
 
+            {/*This is the Carousel part*/}
 
-            { ready && (<div className='user'>
-                <ul>
-                    <li> <span>{tagsList}</span></li>
-                    <li> <img src={image} alt="img" /></li>
-                </ul>
-            </div>)}
+            <div>
+                <Slider {...settings} style={{
+                    margin: "20px 20px"
+                }}>
+                    {results.map((item) => (
+                        <Card key={item.id} style={{
+                            overflow: "hidden",
+                            width: "500px",
+                            height: "500px"
+                        }}
+                        >
+                            <img
+                                style={{
+                                    width: "500px",
+                                    height: "500px",
+                                    margin: "auto"
+                                }}
+                                key={item.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
+                                alt="img-result" />
+                            <CardContent>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {item.caption}
+                                </Typography>
+                                {item.tags.map(posttag => {
+                                    console.log(posttag.tag);
+                                    return (
+                                        <Chip avatar={<Avatar><AiOutlineNumber /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" clickable />
+                                    )
+                                })}
+                            </CardContent>
+                        </Card>)
+                    )}
+                </Slider>
+            </div>
         </div>
     );
 }
-
-
-
-
-
-export default Searchbar2;
