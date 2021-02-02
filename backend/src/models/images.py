@@ -20,3 +20,4 @@ class Image(Base):
 
     # define relationships
     tags = relationship("Tag", secondary=ImageTag.__table__)
+    ai_tags = relationship("AITag")
