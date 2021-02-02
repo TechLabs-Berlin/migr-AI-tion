@@ -52,7 +52,7 @@ export default function Searchbar2() {
         slidesToScroll: 1
     };
 
-    {/*this is the searchbar part*/ }
+    {/*this is the searchbar part trial*/ }
 
     return (
         <div>
