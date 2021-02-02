@@ -19,7 +19,7 @@ class ReadAITag(BaseModel):
     """
     image_id: UUID
     tag: str
-    tag_id: UUID
+    id: UUID
     confidence: str
 
     class Config:
