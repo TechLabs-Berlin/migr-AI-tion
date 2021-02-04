@@ -13,13 +13,10 @@ from database.database import get_session
 from models.images import Image
 from models.tags import Tag
 from models.ai_tags import AITag
-
 from models.images_tags import ImageTag
 
 from controllers.tags import TagController
-
 from views.responses.images import ReadImage
-
 from tf_model.tf import predict, load_model
 
 
