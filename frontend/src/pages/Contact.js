@@ -32,8 +32,6 @@ export default function Contact() {
     console.log(reset);
   }
 
-
-
   function handleName(e) {
     const name = `${encodeURIComponent(e.target.value)}`;
     setName(name);
@@ -57,7 +55,7 @@ export default function Contact() {
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <Grid item xs={12} md={8} lg={6}>
-        <Paper elevation={0} color="#E2E9F0" className="box">
+        <Paper elevation={0} color="#E2E9F0" className="box" style={{ borderRadius: "15px" }}>
           <form action={`mailto:examplemail1@gmail.com?cc=${email}&subject=Migr-AI-tion%20Contact%20Page:%20${subject2}&body=(Please%20click%20on%20the%20send%20button)%0d%0a%0d%0aName:%20${name}%0d%0aEmail:%20${email}%0d%0aSubject:%20${subject2}%0d%0aMessage:%20${message}%0d%0a%0d%0aThank%20you%20for%20your%20contribution!`} method="post" encType="text">
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
@@ -110,8 +108,8 @@ export default function Contact() {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type='submit' name="submit" value={submit} onClick={onSubmit}>Submit</Button>
-                <Button type='reset' name="reset" value={reset} onClick={onReset}>Reset</Button>
+                <Button type='submit' name="submit" value={submit} onClick={onSubmit} style={{ backgroundColor: "#9611ff", color: "white", margin: "0.2em" }}>Submit</Button>
+                <Button type='reset' name="reset" value={reset} onClick={onReset} style={{ backgroundColor: "#9611ff", color: "white", margin: "0.2em" }}>Reset</Button>
               </Grid>
             </Grid>
           </form>
