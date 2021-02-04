@@ -1,10 +1,13 @@
-import { Card, CardContent, Typography, Chip, Avatar } from '@material-ui/core';
+import { Card, CardContent, Typography, Chip, Avatar, InputBase, Button, CardMedia } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { AiOutlineNumber } from "react-icons/ai";
-
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+import Paper from '@material-ui/core/Paper';
+import './SearchBar2.css';
 
 
 export default function Searchbar2() {
@@ -25,6 +28,8 @@ export default function Searchbar2() {
         setSearch(e.target.value);
     }
 
+
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -38,6 +43,7 @@ export default function Searchbar2() {
         }
 
         if (query !== '') {
+            console.log("the data does not exist")
             fetchData();
         }
     }, [query])
@@ -55,48 +61,43 @@ export default function Searchbar2() {
     {/*this is the searchbar part trial*/ }
 
     return (
-        <div>
-            <h1>Search</h1>
-            <form onSubmit={onSubmit}>
-                <input
+        <div className="all">
+            <Paper component="form" onSubmit={onSubmit} className="paper">
+                <IconButton type="submit" aria-label="search">
+                    <SearchIcon className="search-icon" />
+                </IconButton>
+                <InputBase
                     value={search}
                     onChange={onSearch}
                     placeholder="Search tags.."
+                    variant="outlined"
+                    className="searchbar-input"
                 />
-                <button type="submit">Search</button>
-            </form>
+            </Paper>
 
             {/*This is the Carousel part*/}
 
             <div>
-                <Slider {...settings} style={{
-                    margin: "20px 20px"
-                }}>
+                <Slider {...settings} className="slider">
                     {results.map((item) => (
-                        <Card key={item.id} style={{
-                            overflow: "hidden",
-                            width: "500px",
-                            height: "500px"
-                        }}
-                        >
-                            <img
-                                style={{
-                                    width: "500px",
-                                    height: "500px",
-                                    margin: "auto"
-                                }}
-                                key={item.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
-                                alt="img-result" />
+                        <Card key={item.id} className="img-grid">
+                            <CardMedia>
+                                <img
+                                    key={item.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
+                                    alt="img-result" />
+                            </CardMedia>
                             <CardContent>
-                                <Typography variant="body2" color="textSecondary" component="p">
+                                <Typography variant="body2" component="p">
                                     {item.caption}
                                 </Typography>
-                                {item.tags.map(posttag => {
-                                    console.log(posttag.tag);
-                                    return (
-                                        <Chip avatar={<Avatar><AiOutlineNumber /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" clickable />
-                                    )
-                                })}
+                                <Typography className="chip-container">
+                                    {item.tags.map(posttag => {
+                                        console.log(posttag.tag);
+                                        return (
+                                            <Chip style={{ color: "#9611ff", borderColor: "#9611ff", margin: "0.2em" }} avatar={<Avatar style={{ background: "rgba(0, 0, 0, 0.26)" }}><AiOutlineNumber style={{ color: "white" }} /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" variant="outlined" clickable />
+                                        )
+                                    })}
+                                </Typography>
                             </CardContent>
                         </Card>)
                     )}
