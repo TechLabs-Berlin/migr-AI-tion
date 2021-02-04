@@ -12,11 +12,13 @@ from PIL import Image as pil_image  # this is to read and save images
 from database.database import get_session
 from models.images import Image
 from models.tags import Tag
+from models.ai_tags import AITag
 from models.images_tags import ImageTag
 
 from controllers.tags import TagController
-
 from views.responses.images import ReadImage
+from tf_model.tf import predict, load_model
+
 
 # initialize new router
 router = APIRouter()
@@ -122,6 +124,17 @@ def create_image(caption: str = Form(...), tags: str = Form(...), file: UploadFi
         # register image_tag in session
         session.add(ImageTag(tag_id=tag.id, image_id=db_image.id))
     # save changes in database
+
+
+    # write ai_tags instance
+    prediction = predict(im)
+    for dic in prediction:
+        dic['image_id'] = uuid
+        dic['tag'] = dic['class']
+        del dic['class']
+        print(dic)
+        session.add(AITag(**dic))
+
     session.commit()
     return db_image
 
@@ -146,4 +159,3 @@ def list_images(tag: str = None, session: Session = Depends(get_session)) -> Lis
 
         return session.query(Image).filter(Image.tags.any(Tag.tag.like(f"%{tag}%"))).all()
  
-
