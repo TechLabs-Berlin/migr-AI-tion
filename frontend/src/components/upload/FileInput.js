@@ -30,7 +30,7 @@ export default function UploadForm(props) {
         borderRadius: "5px",
         color: " #9611ff",
         backgroundImage: `url(${background})`,
-        backgroundSize: "auto",
+        backgroundSize: "cover",
       }}
       onClick={openFileInput}
     >

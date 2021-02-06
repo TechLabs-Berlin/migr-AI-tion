@@ -2,16 +2,35 @@ import React from "react";
 import axios from "axios";
 import TagsInput from "./TagsInput";
 import ImageCaption from "./ImageCaption";
-import CircularStatic from "./ProgressIcon";
+import { Typography, Chip, Avatar } from "@material-ui/core";
+import { AiOutlineNumber } from "react-icons/ai";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import FileInput from "./FileInput";
 import "./InputForm.css";
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#9611ff",
+    },
+    secondary: {
+      main: "#668389",
+    },
+  },
+});
+
 export default function UploadForm() {
+  const [post, setPost] = React.useState(false);
   const [image, setImage] = React.useState(null);
-  const [post, setPost] = React.useState(null);
+  const [src, setSrc] = React.useState(null);
   const [tags, setTags] = React.useState([]);
+  const [returnTags, setReturnTags] = React.useState([]);
   const [caption, setCaption] = React.useState(null);
+  const [returnCaption, setReturnCaption] = React.useState(null);
+  const [returnAITags, setReturnAITags] = React.useState([]);
   const [progress, setProgress] = React.useState(false);
 
   const enteredCaption = (caption) => {
@@ -34,28 +53,111 @@ export default function UploadForm() {
     formData.append("tags", tags.join(","));
     formData.append("caption", caption);
     await axios
-      .post("http://localhost:8000/images", formData, config)
+      .post("http://localhost:8000/images", formData)
       .then((response) => {
-        setPost(`http://localhost:8000/images/${response.data.id}.jpeg`);
+        setSrc(`http://localhost:8000/images/${response.data.id}.jpeg`);
+        console.log(response.data);
+        setReturnCaption(response.data.caption);
+        console.log(response.data.tags);
+        setReturnTags(response.data.tags);
+        console.log(response.data.ai_tags);
+        setReturnAITags(response.data.ai_tags);
+        setPost(true);
       });
     setProgress(false);
   }
 
-  return (
-    <div className="save-form">
-      <FileInput selectedImage={selectedImage}></FileInput>
-      <TagsInput selectedTags={selectedTags} />
-      <br />
-      <ImageCaption enteredCaption={enteredCaption} />
-      <br />
-      <div className="save-data">
-        <Button className="save-button" palette="primary" onClick={postData}>
-          {" "}
-          Save{" "}
-        </Button>
-        {progress && <CircularStatic />}
-        {post}
+  if (post) {
+    return (
+      <div
+        className="returned-post"
+        style={{
+          width: "100%",
+          height: "500px",
+          textAlign: "center",
+        }}
+      >
+        <img
+          style={{
+            display: "block",
+            margin: "0 auto",
+            height: "50%",
+            borderRadius: "5px",
+          }}
+          className="returned-image"
+          src={src}
+          alt=""
+        />
+        <div></div>
+        <br />
+        <ThemeProvider theme={theme}>
+          <Typography variant="h6" color="primary">
+            <i>"</i>
+            <i>
+              {" "}
+              <span>{returnCaption}</span>{" "}
+            </i>
+            <i>"</i>
+          </Typography>
+          <br />
+          <span className="tags-return">
+            <Typography color="primary">Your Tags: </Typography>
+
+            {returnTags.map((item) => (
+              <Chip
+                color="primary"
+                className="returned-tags-chip"
+                avatar={
+                  <Avatar>
+                    <AiOutlineNumber />
+                  </Avatar>
+                }
+                key={item.id}
+                label={item.tag}
+                variant="outlined"
+              />
+            ))}
+          </span>
+          <br />
+          <br />
+          <span className="ai_tags_return">
+            <Typography color="secondary">Tags from ImageNet AI: </Typography>
+            {returnAITags.map((item) => (
+              <Chip
+                color="secondary"
+                className="returned-ai-tags-chip"
+                avatar={
+                  <Avatar>
+                    <AiOutlineNumber />
+                  </Avatar>
+                }
+                key={item.id}
+                label={item.tag}
+              />
+            ))}
+          </span>
+
+          <br />
+          <br />
+        </ThemeProvider>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="save-form">
+        <FileInput selectedImage={selectedImage}></FileInput>
+        <TagsInput selectedTags={selectedTags} />
+        <br />
+        <ImageCaption enteredCaption={enteredCaption} />
+        <br />
+        <div className="save-data">
+          <Button className="save-button" palette="primary" onClick={postData}>
+            {" "}
+            Save{" "}
+          </Button>
+          {progress && <CircularProgress />}
+        </div>
+      </div>
+    );
+  }
 }

@@ -14,9 +14,12 @@ export default function Chart() {
     return color;
   }
 
-  useEffect(async () => {
-    const response = await axios.get("http://127.0.0.1:8000/tags/network");
-    setGraph(response.data);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get("http://127.0.0.1:8000/tags/network");
+      setGraph(response.data);
+    }
+    fetchData();
   }, []);
 
   let option = {

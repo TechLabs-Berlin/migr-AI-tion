@@ -3,3 +3,11 @@ button.save-button {
   color: white;
   background-color: #9611ff;
 }
+
+.returned-tags-chip {
+  margin: 5px;
+}
+
+.returned-ai-tags-chip {
+  margin: 5px;
+}

@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import UploadDialog from "../components/upload/UploadDialog";
 import "fontsource-roboto";
 import { Typography } from "@material-ui/core";
+import IntroImage from "./IntroImage/IntroImage.png";
 
 export default function Project() {
   return (
@@ -18,14 +19,19 @@ export default function Project() {
               </u>
               <br />
               is an art, documentary and tech project inspired by new
-              possibilities for <mark>storytelling</mark> with data. We focus on
-              migration issues and representing <mark> migrant voices</mark>{" "}
-              that are not heard in the mainstream media. Our methods are
-              collaborative and participatory, and we aim to bring more public
-              awareness to issues such as <b> data literacy</b>,{" "}
-              <b>invisible labour</b> and {""}
-              <b>data colonialism</b>.
+              possibilities for <mark>storytelling</mark> with data. We are
+              creating an image database, and we need your help to help us build
+              it. We focus on migration issues and representing{" "}
+              <mark> migrant voices</mark> that are not heard in the mainstream
+              media. Our methods are collaborative and participatory, and we aim
+              to bring more public awareness to issues such as{" "}
+              <b> data literacy</b>, <b>invisible labour</b> and {""}
+              <b>data colonialism</b>. The database research and educational
+              purposes only.
             </h3>
+            <div>
+              <img styles={{ width: "60%" }} src={IntroImage} />
+            </div>
           </section>
         </Typography>
         <br />
