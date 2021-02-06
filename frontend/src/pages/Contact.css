@@ -3,3 +3,8 @@
   border: 3px solid #9611ff;
   padding: 20px;
 }
+
+.button-wrapper{
+  text-align: right;
+  justify-content: right;
+}

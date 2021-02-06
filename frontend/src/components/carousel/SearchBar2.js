@@ -1,14 +1,44 @@
-import { Card, CardContent, Typography, Chip, Avatar, InputBase, Button, CardMedia } from '@material-ui/core';
+import { Typography, Chip, Avatar, InputBase } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
-import Slider from "react-slick";
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { AiOutlineNumber } from "react-icons/ai";
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import Grid from "@material-ui/core/Grid";
 import Paper from '@material-ui/core/Paper';
 import './SearchBar2.css';
+import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import Slider from 'react-slick';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#9611FF",
+        },
+        secondary: {
+            main: "#668389",
+        },
+    },
+});
+
+const useStyles = makeStyles((theme) => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+}));
+
 
 
 export default function Searchbar2() {
@@ -18,6 +48,7 @@ export default function Searchbar2() {
     const [search, setSearch] = useState('');
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
+    const [open, setOpen] = React.useState(false);
 
     function onSubmit(e) {
         e.preventDefault();
@@ -51,67 +82,162 @@ export default function Searchbar2() {
 
     {/*This is the const for Carousel */ }
 
-    var settings = {
+    const settings = {
         dots: true,
+        className: "center",
         infinite: true,
-        speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1,
-    }
+        speed: 500,
+        initialSlide: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
 
-    {/*this is the searchbar part trial*/ }
+
+
+    {/*this is the const for modal*/ }
+    const classes = useStyles();
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+
+    {/*this is the searchbar return part*/ }
 
     return (
         <div className="all">
-            <Paper component="form" onSubmit={onSubmit} className="paper" style={{ borderRadius: "20px" }}>
-                <IconButton type="submit" aria-label="search" style={{ paddingRight: "0.3em", paddingLeft: "0.5em" }}>
-                    <SearchIcon className="search-icon" />
-                </IconButton>
-                <InputBase
-                    value={search}
-                    onChange={onSearch}
-                    placeholder="Search tags.."
-                    variant="outlined"
-                    className="searchbar-input"
-                    style={{ fontSize: "0.9em" }}
-                />
-            </Paper>
+            <div className="paperwrapper-searchbar">
+                <Paper component="form" onSubmit={onSubmit} className="searchbar-paper">
+                    <IconButton
+                        type="submit"
+                        aria-label="search"
+                        style={{ paddingRight: "0.3em", paddingLeft: "0.5em" }}>
+                        <SearchIcon className="search-icon" />
+                    </IconButton>
+                    <InputBase
+                        value={search}
+                        onChange={onSearch}
+                        placeholder="Search tags.."
+                        variant="outlined"
+                        className="searchbar-input"
+                        style={{ fontSize: "0.9em" }}
+                    />
+                </Paper>
+            </div>
 
             {/*This is the Carousel part*/}
 
             <div>
-                <Slider {...settings} className="slider">
-                    {results.map((item) => (
-                        <div>
-                            <Paper key={item.id} className="paper2" style={{ borderRadius: "15px" }}>
-                                <CardMedia>
-                                    <img
-                                        key={item.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
-                                        alt="img-result" />
-                                </CardMedia>
+                <ThemeProvider theme={theme}>
+                    <Slider {...settings} className="slickslider">
+                        {results.map((item) => (
+                            <div>
+                                <Paper key={item.id} className="paper-slider">
+                                    <div className="img-wrapper">
+                                        <img
+                                            key={item.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
+                                            alt="img-result"
+                                            onClick={handleOpen} />
 
-                                <CardContent className="caption-card">
-                                    <Typography variant="body2" component="p">
-                                        {item.caption}
-                                    </Typography>
-                                </CardContent>
-                                <CardContent className="tags-card"
-                                    style={{ paddingBottom: "3%", paddingTop: "0" }}>
-                                    <Typography>
+                                        {/*This is the Modal start*/}
+
+                                    </div>
+                                    <div>
+                                        <Modal
+                                            aria-labelledby="transition-modal-title"
+                                            aria-describedby="transition-modal-description"
+                                            className={classes.modal}
+                                            open={open}
+                                            onClose={handleClose}
+                                            closeAfterTransition
+                                            BackdropComponent={Backdrop}
+                                            BackdropProps={{
+                                                timeout: 500,
+                                            }}
+                                        >
+                                            <Fade in={open}>
+                                                <div className={classes.paper}>
+                                                    <img
+                                                        key={item.tags.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
+                                                        alt="img-modal"
+                                                        style={{
+                                                            width: "50em",
+                                                            maxWidth: "100%"
+                                                        }} />
+                                                </div>
+                                            </Fade>
+                                        </Modal>
+                                    </div>
+
+                                    {/*This is the Modal end*/}
+
+
+                                    <div>
+                                        <Typography variant="h6" component="p" className="caption-wrap">
+                                            <i>"{item.caption}"</i>
+                                        </Typography>
+                                    </div>
+
+                                    <div className="mtag-wrap">
+                                        <Typography className="mtag-label">
+                                            Migr-ai-tion Tags:
+                                            </Typography>
                                         {item.tags.map(posttag => {
                                             console.log(posttag.tag);
                                             return (
-                                                <Chip style={{ color: "#9611ff", borderColor: "#9611ff", margin: "0.2em" }} avatar={<Avatar style={{ background: "rgba(0, 0, 0, 0.26)" }}><AiOutlineNumber style={{ color: "white" }} /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" variant="outlined" clickable />
+                                                <Chip className="chip1" avatar={<Avatar><AiOutlineNumber /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" variant="outlined" color="primary" clickable />
                                             )
                                         })}
-                                    </Typography>
-                                </CardContent>
+                                    </div>
+                                    <div className="ntag-wrap">
+                                        <Typography className="ntag-label">
+                                            Image_Net Tags:</Typography>
+                                        {item.tags.map(posttag => {
+                                            console.log(posttag.tag);
+                                            return (
+                                                <Chip className="chip2" avatar={<Avatar><AiOutlineNumber /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" clickable />
+                                            )
+                                        })}
+                                    </div>
 
-                            </Paper>
-                        </div>)
-                    )}
-                </Slider>
+
+
+                                </Paper>
+                            </div>)
+                        )}
+                    </Slider>
+                </ThemeProvider>
             </div>
+
         </div>
     );
 }
