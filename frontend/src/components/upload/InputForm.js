@@ -22,7 +22,7 @@ const theme = createMuiTheme({
   },
 });
 
-export default function UploadForm() {
+export default function UploadForm(props) {
   const [post, setPost] = React.useState(false);
   const [image, setImage] = React.useState(null);
   const [src, setSrc] = React.useState(null);
@@ -52,18 +52,16 @@ export default function UploadForm() {
     formData.append("file", image);
     formData.append("tags", tags.join(","));
     formData.append("caption", caption);
-    await axios
-      .post("http://localhost:8000/images", formData)
-      .then((response) => {
-        setSrc(`http://localhost:8000/images/${response.data.id}.jpeg`);
-        console.log(response.data);
-        setReturnCaption(response.data.caption);
-        console.log(response.data.tags);
-        setReturnTags(response.data.tags);
-        console.log(response.data.ai_tags);
-        setReturnAITags(response.data.ai_tags);
-        setPost(true);
-      });
+    let response = await axios.post("http://localhost:8000/images", formData);
+    props.newTitle();
+    setSrc(`http://localhost:8000/images/${response.data.id}.jpeg`);
+    console.log(response.data.caption);
+    setReturnCaption(response.data.caption);
+    console.log(response.data.tags);
+    setReturnTags(response.data.tags);
+    console.log(response.data.ai_tags);
+    setReturnAITags(response.data.ai_tags || []);
+    setPost(true);
     setProgress(false);
   }
 
@@ -101,8 +99,7 @@ export default function UploadForm() {
           </Typography>
           <br />
           <span className="tags-return">
-            <Typography color="primary">Your Tags: </Typography>
-
+            <Typography color="primary"> Your Tags: </Typography>
             {returnTags.map((item) => (
               <Chip
                 color="primary"
@@ -121,7 +118,9 @@ export default function UploadForm() {
           <br />
           <br />
           <span className="ai_tags_return">
-            <Typography color="secondary">Tags from ImageNet AI: </Typography>
+            <Typography color="secondary"> Tags from ImageNet AI: </Typography>
+            {returnAITags.length === 0 && <p>couldn't identify any tags</p>}
+
             {returnAITags.map((item) => (
               <Chip
                 color="secondary"
@@ -151,7 +150,12 @@ export default function UploadForm() {
         <ImageCaption enteredCaption={enteredCaption} />
         <br />
         <div className="save-data">
-          <Button className="save-button" palette="primary" onClick={postData}>
+          <Button
+            disabled={!image || !caption || tags.length === 0}
+            className="save-button"
+            palette="primary"
+            onClick={postData}
+          >
             {" "}
             Save{" "}
           </Button>

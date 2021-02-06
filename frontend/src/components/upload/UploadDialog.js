@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -52,6 +52,10 @@ export default function CustomizedDialogs() {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("Share your story!");
 
+  const changeTitle = () => {
+    setTitle("Compare your tags with AI!");
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -72,11 +76,15 @@ export default function CustomizedDialogs() {
         maxWidth="md"
         fullWidth={true}
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+        <DialogTitle
+          //newTitle={newTitle}
+          id="customized-dialog-title"
+          onClose={handleClose}
+        >
           {title}
         </DialogTitle>
         <DialogContent dividers>
-          <InputForm />
+          <InputForm newTitle={changeTitle} />
         </DialogContent>
       </Dialog>
     </div>
