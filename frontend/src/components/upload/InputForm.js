@@ -86,16 +86,18 @@ export default function UploadForm(props) {
           src={src}
           alt=""
         />
-        <div></div>
+
         <br />
         <ThemeProvider theme={theme}>
           <Typography variant="h6" color="primary">
-            <i>"</i>
-            <i>
-              {" "}
-              <span>{returnCaption}</span>{" "}
-            </i>
-            <i>"</i>
+            <div className="returned-caption">
+              <i>"</i>
+              <i>
+                {" "}
+                <span>{returnCaption}</span>{" "}
+              </i>
+              <i>"</i>
+            </div>
           </Typography>
           <br />
           <span className="tags-return">
@@ -119,15 +121,19 @@ export default function UploadForm(props) {
           <br />
           <span className="ai_tags_return">
             <Typography color="secondary"> Tags from ImageNet AI: </Typography>
-            {returnAITags.length === 0 && <p>couldn't identify any tags</p>}
+            {returnAITags.length === 0 && (
+              <Typography variant="h12" color="secondary">
+                <i>[couldn't identify any tags] </i>
+              </Typography>
+            )}
 
             {returnAITags.map((item) => (
               <Chip
-                color="secondary"
+                style={{ color: "#668389" }}
                 className="returned-ai-tags-chip"
                 avatar={
-                  <Avatar>
-                    <AiOutlineNumber />
+                  <Avatar style={{ background: "#668389" }}>
+                    <AiOutlineNumber style={{ color: "white" }} />
                   </Avatar>
                 }
                 key={item.id}
@@ -159,7 +165,9 @@ export default function UploadForm(props) {
             {" "}
             Save{" "}
           </Button>
-          {progress && <CircularProgress />}
+          <ThemeProvider theme={theme}>
+            {progress && <CircularProgress />}
+          </ThemeProvider>
         </div>
       </div>
     );
