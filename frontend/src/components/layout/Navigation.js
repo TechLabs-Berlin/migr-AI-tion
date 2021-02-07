@@ -50,7 +50,9 @@ export default function Navigation() {
         >
           <Button className={classes.root}>Gallery</Button>
         </Link>
-
+        <Link to="/team" className="pages" style={{ textDecoration: "none" }}>
+          <Button className={classes.root}>Team</Button>
+        </Link>
         <Link
           to="/contact"
           className="pages"

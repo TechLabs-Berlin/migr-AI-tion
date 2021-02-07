@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Project from "./pages/Project";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
+import Team from "./pages/Team";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
         <Navigation></Navigation>
         <main>
           <Switch>
+            <Route path="/team">
+              <Team></Team>
+            </Route>
             <Route path="/project">
               <Project></Project>
             </Route>
