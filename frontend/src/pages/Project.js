@@ -4,7 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import UploadDialog from "../components/upload/UploadDialog";
 import "fontsource-roboto";
 import { Typography } from "@material-ui/core";
-import IntroImage from "./IntroImage/IntroImage.png";
 
 export default function Project() {
   return (
@@ -29,9 +28,6 @@ export default function Project() {
               <b>data colonialism</b>. The database research and educational
               purposes only.
             </h3>
-            <div>
-              <img styles={{ width: "60%" }} src={IntroImage} />
-            </div>
           </section>
         </Typography>
         <br />
