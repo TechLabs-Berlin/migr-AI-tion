@@ -1,11 +1,10 @@
 import React from 'react'
 import Slider from "react-slick";
 import './IntroSlider.css';
-import { Paper } from '@material-ui/core';
 
 
 const settings = {
-    dots: true,
+    dots: false,
     arrows: false,
     infinite: true,
     slidesToShow: 1,
@@ -54,13 +53,11 @@ const imageSlider = [
 export default function IntroSlider() {
 
     return (
-        <div >
+        <div className="introslider-wrapper">
             <Slider {...settings} className="slider2">
                 {imageSlider.map((slide) => (
-                    <div>
-                        <Paper className="paper-slider2">
-                            <img key={slide.id} src={slide.img} style={{ margin: "auto" }} />
-                        </Paper>
+                    <div className="paper-slider2">
+                        <img key={slide.id} src={slide.img} style={{ margin: "auto" }} />
                     </div>
                 ))}
             </Slider>

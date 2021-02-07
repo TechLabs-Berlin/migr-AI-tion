@@ -1,8 +1,13 @@
+/* the width of these 3 have to be the same */
+.introslider-wrapper{
+    padding-bottom: 2em;
+}
+
 .slider2 {
     width: 40em;
     height: 30em;
-    margin: auto;
     border-radius: 5px;
+    margin: auto;
 }
 
 .paper-slider2{

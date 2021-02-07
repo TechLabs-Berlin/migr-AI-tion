@@ -31,9 +31,9 @@ export default function Project() {
         </Typography>
         <br />
         <br />
-        <div>
-          <IntroSlider />
-        </div>
+
+        <IntroSlider />
+
         <UploadDialog></UploadDialog>
       </Grid>
     </Grid>

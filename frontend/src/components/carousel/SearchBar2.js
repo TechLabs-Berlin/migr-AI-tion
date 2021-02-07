@@ -13,6 +13,8 @@ import './SearchBar2.css';
 import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import Slider from 'react-slick';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import MatchBar from './MatchBar';
 
 const theme = createMuiTheme({
     palette: {
@@ -136,7 +138,7 @@ export default function Searchbar2() {
     return (
         <div className="all">
             <div className="paperwrapper-searchbar">
-                <Paper component="form" onSubmit={onSubmit} className="searchbar-paper">
+                <form component="form" onSubmit={onSubmit} className="searchbar-paper">
                     <IconButton
                         type="submit"
                         aria-label="search"
@@ -151,7 +153,7 @@ export default function Searchbar2() {
                         className="searchbar-input"
                         style={{ fontSize: "0.9em" }}
                     />
-                </Paper>
+                </form>
             </div>
 
             {/*This is the Carousel part*/}
@@ -161,7 +163,7 @@ export default function Searchbar2() {
                     <Slider {...settings} className="slickslider">
                         {results.map((item) => (
                             <div>
-                                <Paper key={item.id} className="paper-slider">
+                                <div key={item.id} className="paper-slider">
                                     <div className="img-wrapper">
                                         <img
                                             key={item.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
@@ -224,14 +226,16 @@ export default function Searchbar2() {
                                         {item.tags.map(posttag => {
                                             console.log(posttag.tag);
                                             return (
-                                                <Chip className="chip2" avatar={<Avatar><AiOutlineNumber /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" clickable />
+                                                <Chip className="chip2" style={{ color: "#668389" }} avatar={<Avatar style={{ background: "#668389" }}><AiOutlineNumber style={{ color: "white" }} /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" clickable />
                                             )
                                         })}
                                     </div>
+                                    <div>
+                                        <MatchBar match={60} />
+                                    </div>
 
 
-
-                                </Paper>
+                                </div>
                             </div>)
                         )}
                     </Slider>
