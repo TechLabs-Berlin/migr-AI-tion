@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
 const BorderLinearProgress = withStyles((theme) => ({

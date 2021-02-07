@@ -55,7 +55,7 @@ export default function Contact() {
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <Grid item xs={12} md={8} lg={6}>
-        <Paper elevation={0} color="#E2E9F0" className="box" style={{ borderRadius: "15px" }}>
+        <Paper elevation={0} color="#E2E9F0" className="box" style={{ borderRadius: "5px" }}>
           <form action={`mailto:examplemail1@gmail.com?cc=${email}&subject=Migr-AI-tion%20Contact%20Page:%20${subject2}&body=(Thank%20you%20for%20reaching%20out%20to%20us!%20Please%20click%20on%20the%20send%20button)%0d%0a%0d%0aName:%20${name}%0d%0aEmail:%20${email}%0d%0aSubject:%20${subject2}%0d%0aMessage:%20${message}%0d%0a%0d%0a`} method="post" encType="text">
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>

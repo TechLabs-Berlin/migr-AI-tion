@@ -1,20 +1,16 @@
 import { Typography, Chip, Avatar, InputBase } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { AiOutlineNumber } from "react-icons/ai";
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import Paper from '@material-ui/core/Paper';
 import './SearchBar2.css';
 import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import Slider from 'react-slick';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import MatchBar from './MatchBar';
+import ImageModal from './ImageModal';
 
 const theme = createMuiTheme({
     palette: {
@@ -27,21 +23,6 @@ const theme = createMuiTheme({
     },
 });
 
-const useStyles = makeStyles((theme) => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
-}));
-
-
 
 export default function Searchbar2() {
 
@@ -50,7 +31,6 @@ export default function Searchbar2() {
     const [search, setSearch] = useState('');
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
-    const [open, setOpen] = React.useState(false);
 
     function onSubmit(e) {
         e.preventDefault();
@@ -120,19 +100,6 @@ export default function Searchbar2() {
     };
 
 
-
-    {/*this is the const for modal*/ }
-    const classes = useStyles();
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-
-
     {/*this is the searchbar return part*/ }
 
     return (
@@ -165,44 +132,8 @@ export default function Searchbar2() {
                             <div>
                                 <div key={item.id} className="paper-slider">
                                     <div className="img-wrapper">
-                                        <img
-                                            key={item.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
-                                            alt="img-result"
-                                            onClick={handleOpen} />
-
-                                        {/*This is the Modal start*/}
-
+                                        <ImageModal identifier={item.id} />
                                     </div>
-                                    <div>
-                                        <Modal
-                                            aria-labelledby="transition-modal-title"
-                                            aria-describedby="transition-modal-description"
-                                            className={classes.modal}
-                                            open={open}
-                                            onClose={handleClose}
-                                            closeAfterTransition
-                                            BackdropComponent={Backdrop}
-                                            BackdropProps={{
-                                                timeout: 500,
-                                            }}
-                                        >
-                                            <Fade in={open}>
-                                                <div className={classes.paper}>
-                                                    <img
-                                                        key={item.tags.id} src={`http://localhost:8000/images/${item.id}.jpeg`}
-                                                        alt="img-modal"
-                                                        style={{
-                                                            width: "50em",
-                                                            maxWidth: "100%"
-                                                        }} />
-                                                </div>
-                                            </Fade>
-                                        </Modal>
-                                    </div>
-
-                                    {/*This is the Modal end*/}
-
-
                                     <div>
                                         <Typography variant="h6" component="p" className="caption-wrap">
                                             <i>"{item.caption}"</i>
