@@ -32,6 +32,7 @@ export default function Navigation() {
           <Link to="/" style={{ textDecoration: "none" }}>
             <img
               src={logo}
+              alt=""
               style={{
                 paddingLeft: "10px",
                 paddingTop: "20px",
