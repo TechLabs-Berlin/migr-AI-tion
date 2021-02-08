@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import UploadDialog from "../components/upload/UploadDialog";
 import "fontsource-roboto";
 import { Typography } from "@material-ui/core";
+import IntroSlider from "../components/introslider/IntroSlider";
 
 export default function Project() {
   return (
@@ -30,6 +31,9 @@ export default function Project() {
         </Typography>
         <br />
         <br />
+
+        <IntroSlider />
+
         <UploadDialog></UploadDialog>
       </Grid>
     </Grid>
