@@ -1,6 +1,5 @@
-/* the width of these 3 have to be the same */
 .introslider-wrapper{
-    padding-bottom: 2em;
+    padding-bottom: 0.3em;
 }
 
 .slider2 {
@@ -13,10 +12,11 @@
 .paper-slider2{
     width: 40em;
     margin: auto;
-    border-radius: 5px;
+    border-radius: 5px;   
 }
 
 .paper-slider2 img{
     width: 40em;
     border-radius: 5px;
+    border: 3px solid #9611ff;
 }

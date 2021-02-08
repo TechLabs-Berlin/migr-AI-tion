@@ -26,13 +26,13 @@ const useStyles = makeStyles({
     },
 });
 
-export default function MatchBar({ match }) {
+export default function MatchBar({ match, aitag }) {
     const classes = useStyles();
 
     return (
         <div className="matchbar-wrapper">
             <BorderLinearProgress className={classes.root} variant="determinate" value={match} />
-            <Typography variant="body2">{`${match}% Confidence`}</Typography>
+            <Typography variant="body2">{`${match} ${aitag}`}</Typography>
         </div>
     );
 }

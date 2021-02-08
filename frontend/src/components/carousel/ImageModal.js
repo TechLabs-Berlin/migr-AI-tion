@@ -9,7 +9,6 @@ function rand() {
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        border: 0,
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
     },

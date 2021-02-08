@@ -39,6 +39,8 @@
 
 .img-wrapper{
     padding-top: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
 .paper-slider img{
@@ -112,7 +114,7 @@
     display: flex;
     align-items: center;
     color: #668389;
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
     margin-left: 3em;
     margin-right: 3em;
 }
@@ -124,7 +126,7 @@
 @media (min-width: 100px){
     .slickslider{
         width: 18em;
-        height: 40em;
+        height: 45em;
     }
     .paper-slider{
         width: 18em;
@@ -155,7 +157,7 @@
 @media (min-width: 350px){
     .slickslider{
         width: 19em;
-        height: 39em;
+        height: 42em;
     }
     .paper-slider{
         width: 19em;
@@ -183,10 +185,42 @@
     }
 }
 
+
+@media (min-width: 400px){
+    .slickslider{
+        width: 23em;
+        height: 43em;
+    }
+    .paper-slider{
+        width: 23em;
+    }
+    .paper-slider img{
+        width: 17em;
+    }
+    .searchbar-paper { 
+        width: 19em;
+    }
+    .slick-prev {
+        top: 240px;
+        left: -25px;
+    }
+    .slick-next {
+        top: 240px;
+        right: -24px;
+    }
+    .slick-next::before {
+        font-size: 4.5vw;
+    }
+    
+    .slick-prev::before {
+        font-size: 4.5vw;
+    }
+}
+
 @media (min-width: 600px){
     .slickslider{
         width: 30em;
-        height: 41em;
+        height: 45em;
     }
     .paper-slider{
         width: 30em;
@@ -217,7 +251,7 @@
 @media (min-width: 1000px){
     .slickslider{
         width: 35em;
-        height: 43em;
+        height: 50em;
     }
     .paper-slider{
         width: 35em;
@@ -248,7 +282,7 @@
 @media (min-width: 1100px){
     .slickslider{
         width: 40em;
-        height: 48em;
+        height: 55em;
     }
     .paper-slider{
         width: 40em;

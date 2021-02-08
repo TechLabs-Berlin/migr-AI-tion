@@ -43,7 +43,6 @@ export default function Searchbar2() {
     }
 
 
-
     useEffect(() => {
         async function fetchData() {
             try {
@@ -154,6 +153,16 @@ export default function Searchbar2() {
                                     <div className="ntag-wrap">
                                         <Typography className="ntag-label">
                                             Image_Net Tags:</Typography>
+
+                                        {/* this is a pre-code for ai_tags
+                                        {item.ai_tags.map(posttag => {
+                                            console.log(posttag.tag);
+                                            return (
+                                                <Chip className="chip2" style={{ color: "#668389" }} avatar={<Avatar style={{ background: "#668389" }}><AiOutlineNumber style={{ color: "white" }} /></Avatar>} key={posttag.id} label={posttag.tag} component="a" href="#chip" clickable />
+                                            )
+                                        })}
+                                        */}
+
                                         {item.tags.map(posttag => {
                                             console.log(posttag.tag);
                                             return (
@@ -162,7 +171,18 @@ export default function Searchbar2() {
                                         })}
                                     </div>
                                     <div>
-                                        <MatchBar match={60} />
+                                        <MatchBar match={60} aitag={'tradition'} />
+                                        <MatchBar match={60} aitag={'tradition'} />
+                                        <MatchBar match={60} aitag={'tradition'} />
+
+                                        {/*  this is a pre-code for MatchBar     
+                                        {item.ai_tags.map(aiitem => {
+                                            return (
+                                                <MatchBar match={aiitem.confidence} aitag={aiitem.tag}>
+                                            )
+                                        })}
+                                        */}
+
                                     </div>
 
 
