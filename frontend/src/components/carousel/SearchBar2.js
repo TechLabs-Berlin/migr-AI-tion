@@ -141,7 +141,7 @@ export default function Searchbar2() {
 
                                     <div className="mtag-wrap">
                                         <Typography className="mtag-label">
-                                            Migr-ai-tion Tags:
+                                            migr-AI-tion Tags:
                                             </Typography>
                                         {item.tags.map(posttag => {
                                             console.log(posttag.tag);
