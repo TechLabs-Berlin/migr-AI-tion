@@ -32,7 +32,7 @@ export default function MatchBar({ match, aitag }) {
     return (
         <div className="matchbar-wrapper">
             <BorderLinearProgress className={classes.root} variant="determinate" value={match} />
-            <Typography variant="body2">{`${match}% ${aitag}`}</Typography>
+            <Typography variant="body2">{match >= 9 ? `${match.toFixed(1)}% ${aitag}` : `${match}% ${aitag}`}</Typography>
         </div>
     );
 }

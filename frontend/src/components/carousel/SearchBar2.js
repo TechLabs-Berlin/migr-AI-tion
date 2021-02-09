@@ -171,9 +171,9 @@ export default function Searchbar2() {
                                         })}
                                     </div>
                                     <div>
-                                        <MatchBar match={parseInt("75 %")} aitag={'tradition'} />
-                                        <MatchBar match={parseInt("40 %")} aitag={'tradition'} />
-                                        <MatchBar match={parseInt("60.5 %")} aitag={'tradition'} />
+                                        <MatchBar match={parseFloat("52.58 %")} aitag={'tradition'} />
+                                        <MatchBar match={parseFloat("17.12 %")} aitag={'tradition'} />
+                                        <MatchBar match={parseFloat("1.67 %")} aitag={'tradition'} />
 
                                         {/*  this is a pre-code for MatchBar     
                                         {item.ai_tags.map(aiitem => {
