@@ -171,14 +171,14 @@ export default function Searchbar2() {
                                         })}
                                     </div>
                                     <div>
-                                        <MatchBar match={60} aitag={'tradition'} />
-                                        <MatchBar match={60} aitag={'tradition'} />
-                                        <MatchBar match={60} aitag={'tradition'} />
+                                        <MatchBar match={parseInt("75 %")} aitag={'tradition'} />
+                                        <MatchBar match={parseInt("40 %")} aitag={'tradition'} />
+                                        <MatchBar match={parseInt("60.5 %")} aitag={'tradition'} />
 
                                         {/*  this is a pre-code for MatchBar     
                                         {item.ai_tags.map(aiitem => {
                                             return (
-                                                <MatchBar match={aiitem.confidence} aitag={aiitem.tag}>
+                                                <MatchBar match={parseInt(aiitem.confidence)} aitag={aiitem.tag}>
                                             )
                                         })}
                                         */}
