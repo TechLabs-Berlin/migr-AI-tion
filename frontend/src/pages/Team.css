@@ -1,0 +1,15 @@
+p.team {
+  margin: 50px;
+  padding: 50px;
+  border: solid #9611ff 3px;
+  border-radius: 5px;
+}
+
+.teammates-names {
+  color: #9611ff;
+  font-weight: bold;
+}
+
+.description {
+  color: #668389;
+}

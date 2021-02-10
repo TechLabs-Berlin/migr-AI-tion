@@ -1,12 +1,11 @@
 import "./Navigation.css";
-
 import { Link } from "react-router-dom";
-
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
+import logo from "./logo/logo.png";
 
 const useStyles = makeStyles({
   root: {
@@ -31,7 +30,15 @@ export default function Navigation() {
       <Toolbar>
         <Typography variant="h6" className="text title">
           <Link to="/" style={{ textDecoration: "none" }}>
-            (logo)
+            <img
+              src={logo}
+              alt=""
+              style={{
+                paddingLeft: "10px",
+                paddingTop: "20px",
+                height: "70px",
+              }}
+            />
           </Link>
         </Typography>
 
@@ -50,7 +57,9 @@ export default function Navigation() {
         >
           <Button className={classes.root}>Gallery</Button>
         </Link>
-
+        <Link to="/team" className="pages" style={{ textDecoration: "none" }}>
+          <Button className={classes.root}>Team</Button>
+        </Link>
         <Link
           to="/contact"
           className="pages"

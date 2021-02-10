@@ -4,7 +4,6 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogContent from "@material-ui/core/DialogContent";
-import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
@@ -15,6 +14,7 @@ const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
+    color: "#9611ff",
   },
   closeButton: {
     position: "absolute",
@@ -50,6 +50,11 @@ const DialogContent = withStyles((theme) => ({
 
 export default function CustomizedDialogs() {
   const [open, setOpen] = React.useState(false);
+  const [title, setTitle] = React.useState("Share your story!");
+
+  const changeTitle = () => {
+    setTitle("Compare your tags with AI!");
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -71,11 +76,15 @@ export default function CustomizedDialogs() {
         maxWidth="md"
         fullWidth={true}
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Upload a pic!
+        <DialogTitle
+          //newTitle={newTitle}
+          id="customized-dialog-title"
+          onClose={handleClose}
+        >
+          {title}
         </DialogTitle>
         <DialogContent dividers>
-          <InputForm></InputForm>
+          <InputForm newTitle={changeTitle} />
         </DialogContent>
       </Dialog>
     </div>

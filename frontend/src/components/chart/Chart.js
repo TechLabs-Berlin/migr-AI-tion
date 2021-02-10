@@ -6,21 +6,24 @@ export default function Chart() {
   const [graph, setGraph] = React.useState({ nodes: [], links: [] });
 
   function getRandomColor() {
-    var letters = "0123456789ABCDEF";
-    var color = "#";
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
+    var value = (Math.random() * 0xff) | 0;
+    var grayscale = (value << 16) | (value << 8) | value;
+    var color = "#" + grayscale.toString(16);
     return color;
   }
 
-  useEffect(async () => {
-    const response = await axios.get("http://127.0.0.1:8000/tags/network");
-    setGraph(response.data);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get("http://127.0.0.1:8000/tags/network");
+      setGraph(response.data);
+    }
+    fetchData();
   }, []);
 
   let option = {
-    tooltip: {},
+    tooltip: {
+      alwaysShowContent: true,
+    },
     series: [
       {
         type: "graph",
@@ -30,7 +33,10 @@ export default function Chart() {
           symbolSize: n.value * 3,
           itemStyle: { color: getRandomColor() },
         })),
-        links: graph.links,
+        links: graph.links.map((l) => ({
+          ...l,
+          lineStyle: { color: "#24e1ea" },
+        })),
         roam: true,
         label: {
           position: "right",

@@ -5,6 +5,7 @@ __pycache__/
 *$py.class
 
 # ignore sqlite database
+src/test.db
 demo.db
 
 # ignore uploaded images in the images folder
