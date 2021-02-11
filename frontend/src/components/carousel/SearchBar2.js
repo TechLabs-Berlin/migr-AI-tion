@@ -6,7 +6,7 @@ import { AiOutlineNumber } from "react-icons/ai";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import "./SearchBar2.css";
-import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import Slider from "react-slick";
 import MatchBar from "./MatchBar";
@@ -173,7 +173,7 @@ export default function Searchbar2() {
                   </div>
                   <div className="ntag-wrap">
                     <Typography className="ntag-label">
-                      Image_Net Tags:
+                      ImageNet AI Tags:
                     </Typography>
 
                     {item.ai_tags.map((posttag) => {
