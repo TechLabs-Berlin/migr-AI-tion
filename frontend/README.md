@@ -43,11 +43,11 @@ You will also see any lint errors in the console.
 ## Frontend set-up
 ### Page
 The MVP consist of 5 page. Which are:
-#### 1: Home Page
-#### 2: The Project
-#### 3: Gallery 
-#### 4: Team
-#### 5: Contact
+1: Home Page
+2: The Project
+3: Gallery 
+4: Team
+5: Contact
 
 ### Features
 The MVP consists of 4 main features. Which are:
