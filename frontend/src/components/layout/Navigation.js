@@ -34,18 +34,28 @@ export default function Navigation() {
               src={logo}
               alt=""
               style={{
-                paddingLeft: "10px",
+                paddingLeft: "5px",
                 paddingTop: "20px",
                 height: "70px",
               }}
             />
           </Link>
+          <span
+            className="logo-label"
+            style={{
+              position: "relative",
+              bottom: "18px",
+              paddingLeft: "20px",
+            }}
+          >
+            <i>migr</i>-AI-<i>tion</i>
+          </span>
         </Typography>
 
         <Link
           to="/project"
           className="pages"
-          style={{ textDecoration: "none" }}
+          style={{ position: "relative", top: "5px", textDecoration: "none" }}
         >
           <Button className={classes.root}>The project</Button>
         </Link>
@@ -53,17 +63,21 @@ export default function Navigation() {
         <Link
           to="/gallery"
           className="pages"
-          style={{ textDecoration: "none" }}
+          style={{ position: "relative", top: "5px", textDecoration: "none" }}
         >
           <Button className={classes.root}>Gallery</Button>
         </Link>
-        <Link to="/team" className="pages" style={{ textDecoration: "none" }}>
+        <Link
+          to="/team"
+          className="pages"
+          style={{ position: "relative", top: "5px", textDecoration: "none" }}
+        >
           <Button className={classes.root}>Team</Button>
         </Link>
         <Link
           to="/contact"
           className="pages"
-          style={{ textDecoration: "none" }}
+          style={{ position: "relative", top: "7px", textDecoration: "none" }}
         >
           <Button className={classes.root}>Contact</Button>
         </Link>
