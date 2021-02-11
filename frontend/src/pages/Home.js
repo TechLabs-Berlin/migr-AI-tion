@@ -6,11 +6,9 @@ export default function Home() {
   return (
     <div>
       <br />
-      <span className="chart-description">
-        <i>
-          Tags uploaded by users about "migration" currently in our database{" "}
-        </i>
-      </span>
+      <h4 className="chart-description">
+        <i>Your tags about "migration" :</i>
+      </h4>
       <Chart />
     </div>
   );

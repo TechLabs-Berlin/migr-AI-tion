@@ -1,4 +1,4 @@
-.chart-description {
-  margin: "60px";
-  text-align: "right";
+h4.chart-description {
+  text-align: center;
+  color: #668389;
 }
