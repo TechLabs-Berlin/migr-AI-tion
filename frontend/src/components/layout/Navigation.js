@@ -28,7 +28,7 @@ export default function Navigation() {
       elevation={0}
     >
       <Toolbar>
-        <Typography variant="h6" className="text title">
+        <Typography variant="h5" className="text title">
           <Link to="/" style={{ textDecoration: "none" }}>
             <img
               src={logo}
@@ -39,17 +39,18 @@ export default function Navigation() {
                 height: "70px",
               }}
             />
+            <span
+              className="logo-label"
+              style={{
+                color: "#9611ff",
+                position: "relative",
+                bottom: "18px",
+                paddingLeft: "10px",
+              }}
+            >
+              <i>migr</i>-AI-<i>tion</i>
+            </span>
           </Link>
-          <span
-            className="logo-label"
-            style={{
-              position: "relative",
-              bottom: "18px",
-              paddingLeft: "20px",
-            }}
-          >
-            <i>migr</i>-AI-<i>tion</i>
-          </span>
         </Typography>
 
         <Link
