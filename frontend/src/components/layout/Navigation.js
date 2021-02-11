@@ -77,7 +77,7 @@ export default function Navigation() {
         <Link
           to="/contact"
           className="pages"
-          style={{ position: "relative", top: "7px", textDecoration: "none" }}
+          style={{ position: "relative", top: "5px", textDecoration: "none" }}
         >
           <Button className={classes.root}>Contact</Button>
         </Link>
