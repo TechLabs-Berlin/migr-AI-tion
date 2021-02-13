@@ -75,7 +75,7 @@ git status
 ### Setting up infrastructure for Mac
 
 #### 1: Setting up virtual environment 
-You require an up-to-date Python 3 version as well as `pip`. 
+You require an up-to-date Python 3 version (for the Image Classification version 3.4 through 3.8 are compatible) as well as `pip`. Do this only the **first** time. 
 ```bash
 user@Users-MacBook-Pro migr-AI-tion % python3 -m venv venv
 user@Users-MacBook-Pro migr-AI-tion % source venv/bin/activate
@@ -83,12 +83,11 @@ user@Users-MacBook-Pro migr-AI-tion % source venv/bin/activate
 
 
 #### 2: Installing requirements
-Please note the 'venv' addition to your terminal to ensure that you successfully set-up the virtual environment. 
+Please note the 'venv' addition to your terminal to ensure that you successfully set-up the virtual environment. This step needs to be repeated, if new requirements were added while working on the back-end. 
 ```bash
 (venv) user@Users-MacBook-Pro migr-AI-tion % cd backend
 (venv) user@Users-MacBook-Pro backend % pip install -r requirements.txt
 ```
-
 
 #### 3: Starting FastAPI app
 The uvicorn command starts the ASGI app which is located in the src folder. 
@@ -111,19 +110,19 @@ If successfully installed, you should see the following output in the terminal:
 ```bash
 INFO:     Uvicorn running on http://127.0.0.1:8000 
 ```
-And depending with your local set-up you can interact with the API on the above seen IP. For example appending /docs will allow you to test your created endpoints. For further information, see the documentation of [FastAPI](https://fastapi.tiangolo.com/). 
+And depending with your local set-up you can interact with the API on the above seen IP. For example appending /docs to this local URL will allow you to test your created endpoints. For further information, see the documentation of [FastAPI](https://fastapi.tiangolo.com/). 
 
 ### Setting up infrastructure for Windows
 
 #### 1: Setting up virtual environment 
-You require an up-to-date Python 3 version as well as `pip`. 
+You require an up-to-date Python 3 version as well as `pip`. Python 3.4 through 3.8 are compatible with the image classification algorithm. Do this only the **first** time you install the app.
 ```bash
 C:\Users\migr-AI-tion>python -m venv venv
 C:\Users\migr-AI-tion>venv\Scripts\Activate.ps1
 ```
 
 #### 2: Installing requirements
-Please note the 'venv' addition to your terminal to ensure that you successfully set-up the virtual environment. 
+Please note the 'venv' addition to your terminal to ensure that you successfully set-up the virtual environment. This might have to be repeated if new dependencies were added to the back-end. 
 ```bash
 (venv) C:\Users\migr-AI-tion>cd backend
 (venv) C:\Users\migr-AI-tion\backend>pip install -r requirements.txt
@@ -161,18 +160,20 @@ And depending with your local set-up you can interact with the API on the above 
 #### 1. Endpoints
 Two endpoints in total, one for images and one for tags:
 
-1. **"images endpoint" includes a 'post-method' and a 'get-method'** -The 'post-method' reads the image and validates if the image consists of an acceptable file ("jpg", "jpeg", "png", "JPEG", "PNG") and, if validated, saves the image, its caption as well as its newly created unique id in the data table "images". This method also validates if the inserted tags already exist in the table "tags" and, if they are new, adds them to this data table. Also, the unique ids of the image and the tag(s) are saved in "images_tags".
-The 'get-method' retrieves a list of all images and their respective tags in the database "images"
+1. **"images endpoint" includes a 'post-method' and a 'get-method'** -The 'post-method' reads the image and validates if the image consists of an acceptable file ("jpg", "jpeg", "png", "JPEG", "PNG"), is not truncated and whether the PIL library recognizes it as an image and, if validated, saves the image, its caption as well as its newly created unique id in the data table "images". This method also validates if the inserted tags already exist in the table "tags" and, if they are new, adds them to this data table, whilst querying the tag-ids already present and adding new ids for tags not yet present. Also, the unique ids of the image and the tag(s) are saved in "images_tags", linking tags to images. Furthermore, the image is passed to the MobileNetV2 architecture pre-trained with ImageNet weights and 1000 possible tags. The results are stored in the ai_tags table. Which cannnot be queried by itself, as it will be queried only in relation to the get-image endpoint to which it is related. 
+The 'get-method' retrieves a list of all images in the database "images". As the tables ai_tags and tags are related through Foreign Keys, tags and ai_tags are also returned for every image. Currently no pagination is implemented, as there the inteded current use as a documentary project with few users does not require this. However, this feature might be added later.  
 
-2. **"tags endpoint" includes a 'get-method'** - The 'get-method' retrieves a list of all tags in the database "tags".
+2. **"tags endpoint" includes two 'get-methods'** - The 'get-method' retrieves a list of all tags in the database "tags". While the tag/network endpoint returns two lists, one with nodes of the network graph for the homepage (all the tags and counts of their occurence). The edge array returns connections between tags and their values. 
 
 #### 2. Data bases
-Four data bases in total, currently using SQLite but will/might change to PostgreSQL
+Four tables in total, currently using SQLite but will/might change to PostgreSQL.
 
 1. **"images"** - including 'id' and 'caption'
 2. **"tags"** - including 'id' and 'tag'
 3. **"images_tags"** - including 'tag_id' and 'image_id'
 4. **"ai_tags"** - including 'id', 'image_id', 'tag' and 'confidence'
+
+![alt text](/figma/blogpostPhoto/entity_relationship_diagram.png)
 
 
 #### 3. AWS Deployment
@@ -228,13 +229,13 @@ You will also see any lint errors in the console.
 ## Features Frontend
 The MVP consists of 4 main features. Which are:
 #### 1: Data Visualisation
-Once the page is loaded, a data visualisation in form of net should be visible. The user should be able to interact with the net and on hover it will show words representing tags of image available in the database. Whenever a user upload a new post (consisting of an image, a caption and tags) into the database, it will automatically be implemented to the net. So with a new tag input there will be a new branch on the net to be seen.
+Once the page is loaded, a data visualisation in the form of a network graph should be visible. The user should be able to interact with the graph and on hover it will show words representing tags of images available in the database. Whenever a user upload a new post (consisting of an image, a caption and tags) into the database, it will automatically be implemented to the net. So with a new tag input there will be a new branch on the net to be seen.
 
 #### 2: Upload Function
 User should be able to upload an image with format .png or .jpg, input tags and also caption and then upload them as a post into the backend system. The image can then be found in the Gallery page when user searches for a certain tag.
 
 #### 3: Searchbar Function
-User should be able to type any query into the search bar and when the 'enter' key or the magnifying glass icon is pressed, a result of images related to the query should appear. 
+User should be able to type any query into the search bar and when the 'enter' key or the magnifying glass icon is pressed, a result of images related to the query should appear. The string will be matched partially in the tags database. 
 
 #### 4: Carousel Display
 The result images will be presented in form of a sliding carousel. In the carousel, the information about the image uploaded will then be visible. The carousel consists of arrows to slide, a card box to contain the image information, and dots  as the indicator of page. The information provided in the carousel will be the image itself, the tags and caption inputed by the user, the tags results detected by the AI, and the confidence level of how high is the match level of the tags output by AI.
@@ -254,7 +255,7 @@ Michèle Fischer /// Data ///
 
 Margit Hain /// Data /// @CodeGitte
 
-Paul Bochtler /// AI /// 
+Paul Bochtler /// AI /// @datapumpernickel
 
 Sofia Fontenla /// UX ///
 

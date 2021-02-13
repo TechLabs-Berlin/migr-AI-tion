@@ -42,13 +42,15 @@ In order to implement a rudimentary prototype in short period of time, we follow
 
 ![alt text](figma/blogpostPhoto/screenshot_20210213_091108.png)
 
-We decided to create a platform with three central features to help users understand image tagging and network relations. The general tools for each track were as follows:
+The three central features to help users understand image tagging and network relations include the following tools for each track: 
 
 *UX:* Typeform and emails for User Research, Figma for design
 
 *WEB:* front-end; UX designs were implemented by the Web track using React.js. Components were created with a combination of Material-UI templates, React wrappers, and CSS styles sent by the UX track via Figma. 
 
 *DATA:* back-end; the components of the backend were created in Python, the data bases were created in SQLite, FastAPI was used for the APIs, and the deployment was executed in AWS. 
+
+*AI:* The predeictions for images are passed through a MobileNetV2 Model with the Imagenet weights.
 
 ## Challenges
 
@@ -58,7 +60,7 @@ The first challenge is to demystify AI into something understandable for the eve
 
 ### 2. Defining an MVP (for promoting data literacy in AI)
 
-From the onset to the end of the project phase, our MVP sifted through several iterations, as we figured out the most direct course of action. In the beginning, we wanted to integrate an annotation tool, to give the user an experience of using an annotation interface. However, the idea turned out to be too complicated for the the amount of time we had, especially given that there is plenty of data available in just creating tags and captions for a whole image. The idea to create a direct comparison to ImageNet tags came at the very end, after creating basic upload and view features. A slide presentation to explain to introduce the project concept also came at the end.
+From the onset to the end of the project phase, our MVP sifted through several iterations, as we figured out the most direct course of action. In the beginning, we wanted to integrate an annotation tool, to give the user an experience of using an annotation interface. However, the idea turned out to be too complicated for the the amount of time we had, especially given that there is plenty of data available in just creating tags and captions for a whole image. Furthermore, the idea to use migrantes experiences to make AI "better" is not free from replication of the same dynamics we want to bring to light and critize. The idea to create a direct comparison to ImageNet tags came at the very end, after creating basic upload and view features. A slide presentation to explain to introduce the project concept also came at the end.
 
 ### 3. Designing a user-friendly and informative UI
 
