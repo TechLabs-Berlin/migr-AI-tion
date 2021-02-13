@@ -155,7 +155,8 @@ And depending with your local set-up you can interact with the API on the above 
 ---
 
 ## Features Backend
-#### 1: Endpoints
+
+#### 1. Endpoints
 Two endpoints in total, one for images and one for tags:
 
 1. **"images endpoint" includes a 'post-method' and a 'get-method'**
@@ -167,10 +168,10 @@ The 'get-method' retrieves a list of all tags in the database "tags".
 
 #### 2. Data bases
 Four data bases in total, currently using SQLite but will/might change to PostgreSQL
-1: **"images" including 'id' and 'caption'**
-2: **"tags" including 'id' and 'tag'**
-3: **"images_tags" including 'tag_id' and 'image_id'**
-4. **"ai_tags" including 'id', 'image_id', 'tag' and 'confidence'**
+1: "images" including 'id' and 'caption'
+2: "tags" including 'id' and 'tag'
+3: "images_tags" including 'tag_id' and 'image_id'
+4: "ai_tags" including 'id', 'image_id', 'tag' and 'confidence'
 
 
 #### 3. AWS Deployment
