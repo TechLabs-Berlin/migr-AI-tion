@@ -7,7 +7,7 @@ Social inequalities are being reinforced and propagated by the economic operatio
 ## Table of Contents
 
 - [Features](#features)
-- [How To Use](#how-to-use)
+- [Installation](#installation)
 - [References](#references)
 - [Author Info](#author-info)
 
@@ -23,17 +23,10 @@ Computer vision is a wide field, but one of the classic, first achievements of c
 
 3. **Data visualisation -** On the home page, users are able to see the network relations of tags and the frequency by which a certain tag has been submitted. This gives the user a general idea of what aspects of the migration experience are considered important by migrants themselves.
 
-### Technologies
-
-- Technology 1
-- Technology 2
-
 
 ---
 
-## How To Use
-
-### Installation
+## Installation
 
 ### Pull files from GitHub
 Create a new folder "migr-AI-tion" for this project on your computer.
@@ -154,12 +147,6 @@ If successfully installed, you should see the following output in the terminal:
 INFO:     Uvicorn running on http://127.0.0.1:8000 
 ```
 And depending with your local set-up you can interact with the API on the above seen IP. For example appending /docs will allow you to test your created endpoints. For further information, see the documentation of [FastAPI](https://fastapi.tiangolo.com/).
-
-### Frontend set-up
-(general text regarding frontend)
-For further information have a look at
-[Frontend README](#frontend/README.md)
-
 
 
 
