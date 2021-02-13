@@ -161,10 +161,11 @@ The 'get-method' retrieves a list of all images and their respective tags in the
 The 'get-method' retrieves a list of all tags in the database "tags".
 
 ###Tables
-Three tables in total, currently using SQLite but will/might change to PostgreSQL
+Four tables in total, currently using SQLite but will/might change to PostgreSQL
 1: "images" including 'id' and 'caption'
 2: "tags" including 'id' and 'tag'
 3: "images_tags" including 'tag_id' and 'image_id'
+4. "ai_tags" including 'id', 'image_id', 'tag' and 'confidence'
 
 
 ###AWS Deployment
@@ -173,9 +174,6 @@ Three tables in total, currently using SQLite but will/might change to PostgreSQ
 ---
 
 ## Installation Frontend
-
-
-# Frontend set-up for Mac and Windows
 
 After the backend is set and running a frontend set-up is needed to be able to load the app in the local host. [Create React App](https://github.com/facebook/create-react-app).
 
