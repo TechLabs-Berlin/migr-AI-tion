@@ -159,19 +159,18 @@ And depending with your local set-up you can interact with the API on the above 
 #### 1. Endpoints
 Two endpoints in total, one for images and one for tags:
 
-1. **"images endpoint" includes a 'post-method' and a 'get-method'**
-The 'post-method' reads the image and validates if the image consists of an acceptable file ("jpg", "jpeg", "png", "JPEG", "PNG") and, if validated, saves the image, its caption as well as its newly created unique id in the data table "images". This method also validates if the inserted tags already exist in the table "tags" and, if they are new, adds them to this data table. Also, the unique ids of the image and the tag(s) are saved in "images_tags".
+1. **"images endpoint" includes a 'post-method' and a 'get-method'** -The 'post-method' reads the image and validates if the image consists of an acceptable file ("jpg", "jpeg", "png", "JPEG", "PNG") and, if validated, saves the image, its caption as well as its newly created unique id in the data table "images". This method also validates if the inserted tags already exist in the table "tags" and, if they are new, adds them to this data table. Also, the unique ids of the image and the tag(s) are saved in "images_tags".
 The 'get-method' retrieves a list of all images and their respective tags in the database "images"
 
-2: **"tags endpoint" includes a 'get-method'**
-The 'get-method' retrieves a list of all tags in the database "tags".
+2. **"tags endpoint" includes a 'get-method'** - The 'get-method' retrieves a list of all tags in the database "tags".
 
 #### 2. Data bases
 Four data bases in total, currently using SQLite but will/might change to PostgreSQL
-1: "images" including 'id' and 'caption'
-2: "tags" including 'id' and 'tag'
-3: "images_tags" including 'tag_id' and 'image_id'
-4: "ai_tags" including 'id', 'image_id', 'tag' and 'confidence'
+
+1. **"images"** - including 'id' and 'caption'
+2. **"tags"** - including 'id' and 'tag'
+3. **"images_tags"** - including 'tag_id' and 'image_id'
+4. **"ai_tags"** - including 'id', 'image_id', 'tag' and 'confidence'
 
 
 #### 3. AWS Deployment
