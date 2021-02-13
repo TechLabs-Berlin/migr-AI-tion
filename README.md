@@ -7,7 +7,8 @@ Social inequalities are being reinforced and propagated by the economic operatio
 ## Table of Contents
 
 - [Features](#features)
-- [Installation](#installation)
+- [Installation Backend](#installation-backend)
+- [Installation Frontend](#installation-frontend)
 - [References](#references)
 - [Author Info](#author-info)
 
@@ -26,7 +27,7 @@ Computer vision is a wide field, but one of the classic, first achievements of c
 
 ---
 
-## Installation
+## Installation Backend
 
 ### Pull files from GitHub
 Create a new folder "migr-AI-tion" for this project on your computer.
@@ -169,7 +170,9 @@ Three tables in total, currently using SQLite but will/might change to PostgreSQ
 ###AWS Deployment
 (no details here yet, still has to be done)
 
+---
 
+## Installation Frontend
 
 
 # Frontend set-up for Mac and Windows
