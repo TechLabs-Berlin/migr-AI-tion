@@ -164,8 +164,8 @@ The 'get-method' retrieves a list of all images and their respective tags in the
 2: "tags endpoint" includes a 'get-method'
 The 'get-method' retrieves a list of all tags in the database "tags".
 
-###Tables
-Four tables in total, currently using SQLite but will/might change to PostgreSQL
+### Data bases
+Four data bases in total, currently using SQLite but will/might change to PostgreSQL
 1: "images" including 'id' and 'caption'
 2: "tags" including 'id' and 'tag'
 3: "images_tags" including 'tag_id' and 'image_id'
@@ -219,16 +219,8 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 
-## Frontend set-up
-### Page
-The MVP consist of 5 page. Which are:
-1: Home Page
-2: The Project
-3: Gallery 
-4: Team
-5: Contact
-
 ---
+
 
 ## Features Frontend
 The MVP consists of 4 main features. Which are:
@@ -247,3 +239,19 @@ The result images will be presented in form of a sliding carousel. In the carous
 ---
 
 ## Author Info
+For futher information you can contact: 
+**Jie Liang Lin** /// **Web** /// 
+
+**Btari Galuh Chandraditya** /// **Web** /// 
+
+**Thanh Tung Ha Thuc (Tony Ha)** /// **Data** /// 
+
+**Michèle Fischer** /// **Data** /// 
+
+**Margit Hain** /// **Data** /// 
+
+**Paul Bochtler** /// **AI** /// 
+
+**Sofia Fontenla** /// **UX** ///
+
+**Nuno Moreira** /// **UX** /// 
