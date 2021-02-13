@@ -1,5 +1,7 @@
 # migr-AI-tion
 
+![alt text](figma/blogpostPhoto/Screenshot%202021-02-11%20at%2012.43.15.png)
+
 Social inequalities are being reinforced and propagated by the economic operations of the tech industry, specifically in the ways that data is scraped and trained for AI technologies. The blind trust that is placed in software to provide "objective" judgements creates problematic divisions between those who can shape knowledge, and those who are tracked, silenced, and exploited to develop technologies for First World users. This problem, data colonialism, recalls a European colonial tradition, wherein a scientific, 'objectivist' rationale was provided for the colonization of 'other' groups. To address data colonialism, we decided to implement a data literacy project, to educate users on how "truth" is created using data, and to provide new possibilities for self-representation for migrants, whose stories are not heard in the mainstream media. For this project, we decided to focus on how experiences of migrants could be incorporated into a computer vision dataset. 
 
 ---
@@ -244,7 +246,7 @@ For futher information you can contact:
 
 Jie Liang Lin /// Web /// 
 
-Btari Galuh Chandraditya /// Web /// 
+Btari Galuh Chandraditya /// Web /// @btarigaluh
 
 Thanh Tung Ha Thuc (Tony Ha) /// Data /// 
 
