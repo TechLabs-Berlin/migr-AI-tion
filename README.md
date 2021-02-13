@@ -8,7 +8,9 @@ Social inequalities are being reinforced and propagated by the economic operatio
 
 - [Features](#features)
 - [Installation Backend](#installation-backend)
+- [Features Backend](#features-backend)
 - [Installation Frontend](#installation-frontend)
+- [Features Frontend](#features-frontend)
 - [References](#references)
 - [Author Info](#author-info)
 
@@ -151,7 +153,9 @@ And depending with your local set-up you can interact with the API on the above 
 
 
 
-### Backend set-up
+---
+
+## Features Backend
 ###FastAPI
 Two endpoints in total, one for images and one for tags:
 1: "images endpoint" includes a 'post-method' and a 'get-method'
@@ -224,7 +228,9 @@ The MVP consist of 5 page. Which are:
 4: Team
 5: Contact
 
-### Features
+---
+
+## Features Frontend
 The MVP consists of 4 main features. Which are:
 #### 1: Data Visualisation
 Once the page is loaded, a data visualisation in form of net should be visible. The user should be able to interact with the net and on hover it will show words representing tags of image available in the database. Whenever a user upload a new post (consisting of an image, a caption and tags) into the database, it will automatically be implemented to the net. So with a new tag input there will be a new branch on the net to be seen.
