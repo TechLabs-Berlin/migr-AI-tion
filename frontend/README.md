@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Frontend set-up for Mac and Windows
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+After the backend is set and running a frontend set-up is needed to be able to load the app in the local host. [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### 1: Installing required dependencies
 
-In the project directory, you can run:
+Please open a new terminal in the project directory without closing the previous terminal for backend set-up.
 
-### `npm start`
+#### For Mac
+```bash
+user@Users-MacBook-Pro migr-AI-tion % cd frontend
+user@Users-MacBook-Pro frontend % npm install
+```
 
+#### For Windows
+```bash
+C:\Users\migr-AI-tion> cd frontend
+C:\Users\migr-AI-tion\frontend> npm install
+```
+
+### 2: Available Scripts
+
+Once all the dependencies are installed in the project directory, you can run:
+
+#### For Mac
+```bash
+user@Users-MacBook-Pro frontend % npm start
+```
+
+#### For Windows
+```bash
+C:\Users\migr-AI-tion\frontend> npm start
+```
+
+##### `npm start`
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Frontend set-up
+### Page
+The MVP consist of 5 page. Which are:
+1: Home Page
+2: The Project
+3: Gallery 
+4: Team
+5: Contact
 
-### `npm run build`
+### Features
+The MVP consists of 4 main features. Which are:
+#### 1: Data Visualisation
+Once the page is loaded, a data visualisation in form of net should be visible. The user should be able to interact with the net and on hover it will show words representing tags of image available in the database. Whenever a user upload a new post (consisting of an image, a caption and tags) into the database, it will automatically be implemented to the net. So with a new tag input there will be a new branch on the net to be seen.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 2: Upload Function
+User should be able to upload an image with format .png or .jpg, input tags and also caption and then upload them as a post into the backend system. The image can then be found in the Gallery page when user searches for a certain tag.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 3: Searchbar Function
+User should be able to type any query into the search bar and when the 'enter' key or the magnifying glass icon is pressed, a result of images related to the query should appear. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 4: Carousel Display
+The result images will be presented in form of a sliding carousel. In the carousel, the information about the image uploaded will then be visible. The carousel consists of arrows to slide, a card box to contain the image information, and dots  as the indicator of page. The information provided in the carousel will be the image itself, the tags and caption inputed by the user, the tags results detected by the AI, and the confidence level of how high is the match level of the tags output by AI.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
