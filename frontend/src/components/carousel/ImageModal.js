@@ -2,19 +2,19 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     backgroundColor: "transparent",
     boxShadow: theme.shadows[5],
     outline: "none",
-    borderRadius: "5px",
+    borderRadius: "5px"
   },
   modal: {
     display: "flex",
     padding: "none",
     alignItems: "center",
-    justifyContent: "center",
-  },
+    justifyContent: "center"
+  }
 }));
 
 export default function ImageModal({ identifier }) {
@@ -34,13 +34,13 @@ export default function ImageModal({ identifier }) {
       <img
         className={classes.img}
         key={identifier}
-        src={`http://localhost:8000/images/${identifier}.jpeg`}
+        src={`https://app.migr-ai-tion.net/images/${identifier}.jpeg`}
         alt="img-result"
         style={{
           border: "solid 3px #9611ff",
           borderRadius: "5px",
           width: "70em",
-          maxWidth: "100%",
+          maxWidth: "100%"
         }}
       />
     </div>
@@ -50,7 +50,7 @@ export default function ImageModal({ identifier }) {
     <div>
       <img
         key={identifier}
-        src={`http://localhost:8000/images/${identifier}.jpeg`}
+        src={`https://app.migr-ai-tion.net/api/images/${identifier}.jpeg`}
         alt="img-result"
         onClick={handleOpen}
       />

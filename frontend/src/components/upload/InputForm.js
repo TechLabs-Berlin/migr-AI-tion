@@ -14,12 +14,12 @@ import "./InputForm.css";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#9611ff",
+      main: "#9611ff"
     },
     secondary: {
-      main: "#668389",
-    },
-  },
+      main: "#668389"
+    }
+  }
 });
 
 export default function UploadForm(props) {
@@ -33,14 +33,14 @@ export default function UploadForm(props) {
   const [returnAITags, setReturnAITags] = React.useState([]);
   const [progress, setProgress] = React.useState(false);
 
-  const enteredCaption = (caption) => {
+  const enteredCaption = caption => {
     setCaption(caption);
   };
-  const selectedTags = (tags) => {
+  const selectedTags = tags => {
     setTags(tags);
   };
 
-  const selectedImage = (img) => {
+  const selectedImage = img => {
     setImage(img);
   };
 
@@ -52,9 +52,12 @@ export default function UploadForm(props) {
     formData.append("file", image);
     formData.append("tags", tags.join(","));
     formData.append("caption", caption);
-    let response = await axios.post("http://localhost:8000/images", formData);
+    let response = await axios.post(
+      "https://app.migr-ai-tion.net/api/images",
+      formData
+    );
     props.newTitle();
-    setSrc(`http://localhost:8000/images/${response.data.id}.jpeg`);
+    setSrc(`https://app.migr-ai-tion.net/api/images/${response.data.id}.jpeg`);
     console.log(response.data.caption);
     setReturnCaption(response.data.caption);
     console.log(response.data.tags);
@@ -72,7 +75,7 @@ export default function UploadForm(props) {
         style={{
           width: "100%",
           height: "500px",
-          textAlign: "center",
+          textAlign: "center"
         }}
       >
         <img
@@ -80,7 +83,7 @@ export default function UploadForm(props) {
             display: "block",
             margin: "0 auto",
             height: "50%",
-            borderRadius: "5px",
+            borderRadius: "5px"
           }}
           className="returned-image"
           src={src}
@@ -102,7 +105,7 @@ export default function UploadForm(props) {
           <br />
           <span className="tags-return">
             <Typography color="primary"> Your Tags: </Typography>
-            {returnTags.map((item) => (
+            {returnTags.map(item => (
               <Chip
                 color="primary"
                 className="returned-tags-chip"
@@ -127,7 +130,7 @@ export default function UploadForm(props) {
               </Typography>
             )}
 
-            {returnAITags.map((item) => (
+            {returnAITags.map(item => (
               <Chip
                 style={{ color: "#668389" }}
                 className="returned-ai-tags-chip"

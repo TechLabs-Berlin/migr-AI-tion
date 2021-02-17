@@ -15,12 +15,12 @@ import ImageModal from "./ImageModal";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#9611FF",
+      main: "#9611FF"
     },
     secondary: {
-      main: "#668389",
-    },
-  },
+      main: "#668389"
+    }
+  }
 });
 
 export default function Searchbar2() {
@@ -46,7 +46,7 @@ export default function Searchbar2() {
     async function fetchData() {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/images?tag=${query}`
+          `https://app.migr-ai-tion.net/api/images?tag=${query}`
         );
         const json = await response.json();
         console.log({ json });
@@ -78,25 +78,25 @@ export default function Searchbar2() {
           slidesToShow: 1,
           slidesToScroll: 1,
           infinite: true,
-          dots: true,
-        },
+          dots: true
+        }
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 1,
-        },
+          initialSlide: 1
+        }
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
 
   {
@@ -130,7 +130,7 @@ export default function Searchbar2() {
       <div>
         <ThemeProvider theme={theme}>
           <Slider {...settings} className="slickslider">
-            {results.map((item) => (
+            {results.map(item => (
               <div>
                 <div key={item.id} className="paper-slider">
                   <div className="img-wrapper">
@@ -150,7 +150,7 @@ export default function Searchbar2() {
                     <Typography className="mtag-label">
                       migr-AI-tion Tags:
                     </Typography>
-                    {item.tags.map((posttag) => {
+                    {item.tags.map(posttag => {
                       console.log(posttag.tag);
                       return (
                         <Chip
@@ -176,7 +176,7 @@ export default function Searchbar2() {
                       ImageNet AI Tags:
                     </Typography>
 
-                    {item.ai_tags.map((posttag) => {
+                    {item.ai_tags.map(posttag => {
                       console.log(posttag.tag);
                       return (
                         <Chip
@@ -197,7 +197,7 @@ export default function Searchbar2() {
                     })}
                   </div>
                   <div>
-                    {item.ai_tags.map((aiitem) => {
+                    {item.ai_tags.map(aiitem => {
                       return (
                         <MatchBar
                           match={parseFloat(aiitem.confidence)}

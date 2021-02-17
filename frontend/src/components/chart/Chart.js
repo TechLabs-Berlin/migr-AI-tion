@@ -14,7 +14,9 @@ export default function Chart() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("http://127.0.0.1:8000/tags/network");
+      const response = await axios.get(
+        "https://app.migr-ai-tion.net/api/tags/network"
+      );
       setGraph(response.data);
     }
     fetchData();
@@ -22,30 +24,30 @@ export default function Chart() {
 
   let option = {
     tooltip: {
-      alwaysShowContent: true,
+      alwaysShowContent: true
     },
     series: [
       {
         type: "graph",
         layout: "force",
-        data: graph.nodes.map((n) => ({
+        data: graph.nodes.map(n => ({
           ...n,
           symbolSize: n.value * 3,
-          itemStyle: { color: getRandomColor() },
+          itemStyle: { color: getRandomColor() }
         })),
-        links: graph.links.map((l) => ({
+        links: graph.links.map(l => ({
           ...l,
-          lineStyle: { color: "#24e1ea" },
+          lineStyle: { color: "#24e1ea" }
         })),
         roam: true,
         label: {
-          position: "right",
+          position: "right"
         },
         force: {
-          repulsion: 100,
-        },
-      },
-    ],
+          repulsion: 100
+        }
+      }
+    ]
   };
   return (
     <ReactEcharts style={{ width: "100%", height: "100vh" }} option={option} />
